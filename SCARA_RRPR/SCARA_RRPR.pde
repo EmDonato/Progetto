@@ -1,5 +1,5 @@
-//import peasy.*;
-//PeasyCam cam;
+import peasy.*;
+PeasyCam cam;
 
 float q1r=PI;
 float q2r=0.0;
@@ -38,7 +38,7 @@ float D4=0.0;
 
 void setup(){
   size(1300,750,P3D);
-  //cam = new PeasyCam(this, 400);
+  cam = new PeasyCam(this, 400);
   background(#979CF5);
   directionalLight(126,126,126,0,0,0.7);
 }
