@@ -45,7 +45,7 @@ void setup(){
 
  void draw(){
    background(#979CF5);
-   translate(650,375);
+   //translate(650,375);
    
    q1=q1+TT*(q1-q1r);
    q2=q2+TT*(q2-q2r); 
