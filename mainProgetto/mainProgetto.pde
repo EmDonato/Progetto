@@ -81,7 +81,7 @@ void draw(){
   push();
   rotateX(PI/2);
   rotateZ(PI/2);
-  translate(0,-100,0);
+  translate(0,-50,0);
   torreHanoi();
   pop();
   SCARA();
@@ -198,7 +198,7 @@ void cilindro(float r1,float r2,float h){
  //Per determinare la superfice della base rettangolare lato1-->lato maggiore, lato2-->lato minore
  void base(float lato1, float lato2){
    push();
-   translate(0,0,-15);
+   translate(0,0,-22);
    box(lato1,lato2,Hbase);
    pop();
  }
@@ -234,7 +234,7 @@ void cilindro(float r1,float r2,float h){
    pop();
  }
  
- void base(){
+ void baseRobot(){
   fill(100);
   push();
   translate(0,10,0);
@@ -324,7 +324,7 @@ void linkP(float theta, float d, float alpha, float a){
  }
  
  void SCARA(){
-   base();
+   baseRobot();
    linkR(q1,L1,alph1,D1);
    linkR(q2,L2,alph2,D2);
    linkP(th3,q3,alph3,D3);
