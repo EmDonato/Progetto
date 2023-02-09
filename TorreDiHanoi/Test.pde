@@ -28,37 +28,37 @@ float ZBASE=100.0;
 TorreDiHanoi Torre= new TorreDiHanoi(XBASE,YBASE,ZBASE);
 
 //Altezza e raggio interno dischi
-float HeightDisc=10.0;
+float HeightDisc=20.0;
 float RintDisc=15.0;
 
 //Disco UNO (grande)
-float RestDiscUNO=20.0; //Raggio esterno
+float RestDiscUNO=40.0; //Raggio esterno
   disco UNO =  new disco(RintDisc,RestDiscUNO,HeightDisc);
 
-//Coordinate  
-  float UNOx=0.0;
+//Coordinate iniziali
+  float UNOx=-100.0;
   float UNOy=-YBASE/2-HeightDisc/2;
   float UNOz=0.0;
 
-float RestDiscDUE=25.0; //Raggio esterno
+float RestDiscDUE=30.0; //Raggio esterno
 
 //Disco DUE (medio)
   disco DUE =  new disco(RintDisc,RestDiscDUE,HeightDisc);
   
-//Coordinate  
-  float DUEx;
-  float DUEy;
-  float DUEz;
+//Coordinate iniziali 
+  float DUEx=-100.0;
+  float DUEy=-YBASE/2-(3*HeightDisc)/2;
+  float DUEz=0;
   
-float RestDiscTRE=30.0; //Raggio esterno
+float RestDiscTRE=20.0; //Raggio esterno
 
 //Disco TRE (piccolo) 
   disco TRE =  new disco(RintDisc,RestDiscTRE,HeightDisc);
   
-//Coordinate  
-  float TREx;
-  float TREy;
-  float TREz;
+//Coordinate iniziali
+  float TREx=-100.0;
+  float TREy=-YBASE/2-(5*HeightDisc)/2;
+  float TREz=0;
   
 void setup(){
   size(1300,750,P3D);
@@ -74,10 +74,10 @@ void draw(){
   UNO.DrawDisco(UNOx,UNOy,UNOz);
   pop();
   push();
-  DUE.DrawDisco(100,70,10);
+  DUE.DrawDisco(DUEx,DUEy,DUEz);
   pop();
   push();
-  TRE.DrawDisco(100,70,10);
+  TRE.DrawDisco(TREx,TREy,TREz);
   pop();
   push();
   Torre.DrawTh(0,0,0);
