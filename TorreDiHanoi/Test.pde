@@ -1,7 +1,7 @@
 import peasy.*;
 PeasyCam cam;
 
-// Raggio e naltezza dei pali A,B e C
+// Raggio e altezza dei pali A,B e C
 float raggioP=15.0;
 float altezzaP=100.0;
 
@@ -10,12 +10,12 @@ float posPaloAx=-100.0;
 float posPaloAy= 0.0;
 float posPaloAz= 0.0;
 
-//Coordinate Palo B (Default: quello a sinistra)
+//Coordinate Palo B (Default: quello al centro)
 float posPaloBx= 0.0;
 float posPaloBy= 0.0;
 float posPaloBz= 0.0;
 
-//Coordinate Palo C (Default: quello a sinistra)
+//Coordinate Palo C (Default: quello a destra)
 float posPaloCx= 100.0;
 float posPaloCy= 0.0;
 float posPaloCz= 0.0;
