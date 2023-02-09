@@ -8,12 +8,15 @@ class palo {
     r=rPalo;
     h=hPalo;
   }
-  void Draw(float Palox, float Paloy, float Paloz){
+  void DrawPalo(float Palox, float Paloy, float Paloz){
     x = Palox;
     y = Paloy;
-    z = Paloz;    
+    z = Paloz;
+    push();
     translate(x,y,z);
+    rotateX(PI/2);
     cilindro(r,h);
+    pop();
   }
 }
 

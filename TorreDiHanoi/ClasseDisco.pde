@@ -10,12 +10,15 @@ class disco {
     r=r1;
     h=hDisc;
   }
-  void Draw(float Discx, float Discy, float Discz){
+  void DrawDisco(float Discx, float Discy, float Discz){
     x = Discx;
     y = Discy;
-    z = Discz;    
+    z = Discz;
+    push();
     translate(x,y,z);
+    rotateX(PI/2);
     cilindroCavo(r,R,h);
+    pop();
   }
 }
 
