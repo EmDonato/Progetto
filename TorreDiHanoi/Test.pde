@@ -27,38 +27,56 @@ float ZBASE=100.0;
 
 TorreDiHanoi Torre= new TorreDiHanoi(XBASE,YBASE,ZBASE);
 
-//Altezza e raggio interno dischi
+//Altezza, raggio interno dischi e lunghezza linguetta
 float HeightDisc=20.0;
 float RintDisc=15.0;
 
+//Parametri linguetta (Il primo è quello che definisce quanto si sporge la linguetta dal disco)
+float Linguetta=60.0;
+float hLing=2.0;
+float LargLing=10.0;
+
 //Disco UNO (grande)
 float RestDiscUNO=40.0; //Raggio esterno
-  disco UNO =  new disco(RintDisc,RestDiscUNO,HeightDisc);
+  disco UNO =  new disco(RintDisc,RestDiscUNO,HeightDisc,Linguetta);
 
-//Coordinate iniziali
+//Coordinate iniziali disco UNO (grande)
   float UNOx=-100.0;
   float UNOy=-YBASE/2-HeightDisc/2;
   float UNOz=0.0;
 
-float RestDiscDUE=30.0; //Raggio esterno
+  //Coordinate iniziali punto presa della linguetta
+  float PosLingUNOx=-100.0;;
+  float PosLingUNOy=-YBASE/2-HeightDisc/2;
+  float PosLingUNOz=(RestDiscUNO/2)+Linguetta;
 
 //Disco DUE (medio)
-  disco DUE =  new disco(RintDisc,RestDiscDUE,HeightDisc);
+float RestDiscDUE=30.0; //Raggio esterno
+  disco DUE =  new disco(RintDisc,RestDiscDUE,HeightDisc,Linguetta);
   
-//Coordinate iniziali 
+//Coordinate iniziali disco DUE (medio)
   float DUEx=-100.0;
   float DUEy=-YBASE/2-(3*HeightDisc)/2;
   float DUEz=0;
-  
-float RestDiscTRE=20.0; //Raggio esterno
 
-//Disco TRE (piccolo) 
-  disco TRE =  new disco(RintDisc,RestDiscTRE,HeightDisc);
+  //Coordinate iniziali punto presa della linguetta
+  float PosLingDUEx=0.0;;
+  float PosLingDUEy=-YBASE/2-HeightDisc/2;
+  float PosLingDUEz=(RestDiscDUE/2)+Linguetta;
   
-//Coordinate iniziali
+//Disco TRE (piccolo) 
+float RestDiscTRE=20.0; //Raggio esterno
+  disco TRE =  new disco(RintDisc,RestDiscTRE,HeightDisc,Linguetta);
+  
+//Coordinate iniziali disco TRE (piccolo)
   float TREx=-100.0;
   float TREy=-YBASE/2-(5*HeightDisc)/2;
   float TREz=0;
+  
+  //Coordinate iniziali punto presa della linguetta
+  float PosLingTREx=100.0;;
+  float PosLingTREy=-YBASE/2-HeightDisc/2;
+  float PosLingTREz=(RestDiscTRE/2)+Linguetta;
   
 void setup(){
   size(1300,750,P3D);
@@ -82,20 +100,20 @@ void draw(){
   push();
   Torre.DrawTh(0,0,0);
   pop();
-  //strokeWeight(2);
-  //push();
-  //fill(255,0,0);
-  //stroke(255,0,0);
-  //line(0,0,0,200,0,0);
-  //pop();
-  //push();
-  //fill(0,255,0);
-  //stroke(0,255,0);
-  //line(0,0,0,0,200,0);
-  //pop();
-  //push();
-  //fill(0,0,255);
-  //stroke(0,0,255);
-  //line(0,0,0,0,0,200);
-  //pop();
+  push();
+  strokeWeight(2);
+  fill(255,0,0);
+  stroke(255,0,0);
+  line(0,0,0,200,0,0);
+  pop();
+  push();
+  fill(0,255,0);
+  stroke(0,255,0);
+  line(0,0,0,0,200,0);
+  pop();
+  push();
+  fill(0,0,255);
+  stroke(0,0,255);
+  line(0,0,0,0,0,200);
+  pop();
 }

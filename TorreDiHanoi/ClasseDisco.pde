@@ -2,13 +2,15 @@ class disco {
   float x;
   float y;
   float z;
-  float R;
   float r;
+  float R;
   float h;
-  disco( float r2, float r1, float hDisc ){
-    R=r2;
+  float Llinguette;
+  disco( float r1, float r2, float hDisc, float LungLing){
     r=r1;
+    R=r2;
     h=hDisc;
+    Llinguette=LungLing;
   }
   void DrawDisco(float Discx, float Discy, float Discz){
     x = Discx;
@@ -21,8 +23,8 @@ class disco {
     cilindroCavo(r,R,h);
     pop();
     push();
-    translate(0,0,40);
-    box(15,2,100);
+    translate(0,0,(R/2)+(Linguetta/2));
+    box(LargLing,hLing,Llinguette);
     pop();
     pop();
   }
