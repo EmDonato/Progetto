@@ -16,8 +16,14 @@ class disco {
     z = Discz;
     push();
     translate(x,y,z);
+    push();
     rotateX(PI/2);
     cilindroCavo(r,R,h);
+    pop();
+    push();
+    translate(0,0,40);
+    box(15,2,100);
+    pop();
     pop();
   }
 }

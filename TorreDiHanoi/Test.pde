@@ -69,8 +69,8 @@ void setup(){
 
 void draw(){
   background(#979CF5);
+  fill(#C99951);
   push();
-  //translate(0,0,0);
   UNO.DrawDisco(UNOx,UNOy,UNOz);
   pop();
   push();
@@ -82,20 +82,20 @@ void draw(){
   push();
   Torre.DrawTh(0,0,0);
   pop();
-  strokeWeight(2);
-  push();
-  fill(255,0,0);
-  stroke(255,0,0);
-  line(0,0,0,200,0,0);
-  pop();
-  push();
-  fill(0,255,0);
-  stroke(0,255,0);
-  line(0,0,0,0,200,0);
-  pop();
-  push();
-  fill(0,0,255);
-  stroke(0,0,255);
-  line(0,0,0,0,0,200);
-  pop();
+  //strokeWeight(2);
+  //push();
+  //fill(255,0,0);
+  //stroke(255,0,0);
+  //line(0,0,0,200,0,0);
+  //pop();
+  //push();
+  //fill(0,255,0);
+  //stroke(0,255,0);
+  //line(0,0,0,0,200,0);
+  //pop();
+  //push();
+  //fill(0,0,255);
+  //stroke(0,0,255);
+  //line(0,0,0,0,0,200);
+  //pop();
 }
