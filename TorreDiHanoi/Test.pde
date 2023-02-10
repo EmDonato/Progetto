@@ -60,8 +60,8 @@ float RestDiscDUE=30.0; //Raggio esterno
   float DUEz=0;
 
   //Coordinate iniziali punto presa della linguetta
-  float PosLingDUEx=0.0;;
-  float PosLingDUEy=-YBASE/2-HeightDisc/2;
+  float PosLingDUEx=-100.0;;
+  float PosLingDUEy=-YBASE/2-(3*HeightDisc)/2;
   float PosLingDUEz=(RestDiscDUE/2)+Linguetta;
   
 //Disco TRE (piccolo) 
@@ -74,15 +74,31 @@ float RestDiscTRE=20.0; //Raggio esterno
   float TREz=0;
   
   //Coordinate iniziali punto presa della linguetta
-  float PosLingTREx=100.0;;
-  float PosLingTREy=-YBASE/2-HeightDisc/2;
+  float PosLingTREx=-100.0;;
+  float PosLingTREy=-YBASE/2-(5*HeightDisc)/2;
   float PosLingTREz=(RestDiscTRE/2)+Linguetta;
   
+//Coordinate Livello Palo A (Ordinate dal più basso al più alto)
+Float Lv1Ax=posPaloAx; Float Lv1Ay=-YBASE/2-HeightDisc/2;     Float Lv1Az=posPaloAz;
+Float Lv2Ax=posPaloAx; Float Lv2Ay=-YBASE/2-(3*HeightDisc)/2; Float Lv2Az=posPaloAz;
+Float Lv3Ax=posPaloAx; Float Lv3Ay=-YBASE/2-(5*HeightDisc)/2; Float Lv3Az=posPaloAz;
+
+//Coordinate Livello Palo B (Ordinate dal più basso al più alto)
+Float Lv1Bx=posPaloBx; Float Lv1By=-YBASE/2-HeightDisc/2;     Float Lv1Bz=posPaloBz;
+Float Lv2Bx=posPaloBx; Float Lv2By=-YBASE/2-(3*HeightDisc)/2; Float Lv2Bz=posPaloBz;
+Float Lv3Bx=posPaloBx; Float Lv3By=-YBASE/2-(5*HeightDisc)/2; Float Lv3Bz=posPaloBz;
+
+//Coordinate Livello Palo C (Ordinate dal più basso al più alto)
+Float Lv1Cx=posPaloCx; Float Lv1Cy=-YBASE/2-HeightDisc/2;     Float Lv1Cz=posPaloCz;
+Float Lv2Cx=posPaloCx; Float Lv2Cy=-YBASE/2-(3*HeightDisc)/2; Float Lv2Cz=posPaloCz;
+Float Lv3Cx=posPaloCx; float Lv3Cy=-YBASE/2-(5*HeightDisc)/2; Float Lv3Cz=posPaloCz;
+
 void setup(){
   size(1300,750,P3D);
   cam = new PeasyCam(this, 500);
   background(#979CF5);
   directionalLight(126,126,126,0,0,0.7);
+  smooth(8);
 }
 
 void draw(){
@@ -101,7 +117,8 @@ void draw(){
   Torre.DrawTh(0,0,0);
   pop();
   push();
-  strokeWeight(2);
+  strokeWeight(3);
+  push();
   fill(255,0,0);
   stroke(255,0,0);
   line(0,0,0,200,0,0);
@@ -115,5 +132,6 @@ void draw(){
   fill(0,0,255);
   stroke(0,0,255);
   line(0,0,0,0,0,200);
+  pop();
   pop();
 }
