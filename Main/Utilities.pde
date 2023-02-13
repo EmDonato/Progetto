@@ -1,10 +1,9 @@
 
-float offsetX = 80; // rispetto al centro
 float pDisco1 = Lv1Ay;
 float pDisco2 = Lv2Ay;
 float pDisco3 = Lv3Ay;
-
-float[] position(Move M)
+float[] dist;
+float[] startAndFinal(Move M)
 {
   //funzione che restituisce la posizione spaziale {xi,yi,zi,xf,yf,zf};
   M.printMove();
@@ -48,6 +47,40 @@ float[] position(Move M)
  return(positions);
   
 }
+
+
+
+
+float[] distance(float[] p){
+  
+  // funzione che misura la distanza tra punto iniziale e finale
+  
+  float[] dist = {0,0,0,0,0}; // 0 -> distanza verticale inizio 1 -> distanza verticale finale 2 -> distanza x 3-> distanza z 4-> pitagora
+  dist[0] =  hOff + altezzaP  + YBASE - abs(p[1]);
+  dist[1] =  hOff + altezzaP  + YBASE - abs(p[4]);
+  dist[2] = (abs(p[0])+abs(p[3]));
+  dist[3] = abs(p[2] - p[5]);
+  dist[4] = sqrt((dist[2])*(dist[2]) + (dist[3])*(dist[3]));
+  
+  return(dist);
+}
+
+
+
+void drawTraiettoria(float[] d, float[] positions){
+
+  drawPositions(positions);
+  push();
+  strokeWeight(3);
+  fill(255,0,0);
+  stroke(255,0,0);
+  line(positions[0],positions[1],positions[2],positions[0],positions[1]-d[0],positions[2]);
+  line(positions[0],positions[1]-d[0],positions[2],positions[3],positions[1]-d[0],positions[5]);
+  line(positions[3],positions[4],positions[5],positions[3],positions[4]-d[1],positions[5]);
+  pop();
+
+}
+
 
 void drawPositions(float[] positions){
   push();
