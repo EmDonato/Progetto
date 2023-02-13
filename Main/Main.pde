@@ -1,8 +1,6 @@
 
 
-float Hbase=15.0;
-float Hpalo=80.0;
-float spessore = 15.0;
+
 ArrayList<Move> Moves = new ArrayList<Move>();
 Move M;
  
@@ -13,8 +11,6 @@ PeasyCam cam;
 float xBaseTrasl = 0.0;
 float yBaseTrasl = 0.0;
 float zBaseTrasl = -100.0;
-
-
 
 // Raggio e altezza dei pali A,B e C
 float raggioP=15.0;
@@ -108,12 +104,17 @@ Float LvCx=posPaloCx + xBaseTrasl;   Float Lv1Cy=-YBASE/2-HeightDisc/2 + yBaseTr
                                      Float Lv2Cy=-YBASE/2-(3*HeightDisc)/2 + yBaseTrasl; 
                                      float Lv3Cy=-YBASE/2-(5*HeightDisc)/2 + yBaseTrasl; 
 
-//
+// posizioni della mossa
 float[] posi;
+float[] distt;
+float[] CurrentPosition;
+//offset di altezza
 
+float hOff = 30;
 
+float i = 0.0;
 
-
+int j = 0;
 void setup(){
   size(1300,750,P3D);
   cam = new PeasyCam(this, 500);
@@ -158,9 +159,24 @@ void draw(){
   pop();
   pop();
   
-  M = Moves.get(0);
-  posi = position(M);
-  drawPositions(posi);
+  M = Moves.get(j);
+  posi = startAndFinal(M);
+  
+  print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
+  distt = distance(posi);
+  print(distt[0],distt[1],distt[2],distt[3],distt[4]);
+  drawTraiettoria(distt, posi);
+  i = i+ 0.01;
+  if(i >= 1){
+    i = 0.0;
+     j++;
+    if(j == 7){
+      j = 0;
+    }
+   
+  }
+    CurrentPosition = traiettoria(i, distt, posi);
+    drawCurrentPosition( CurrentPosition);
   
   
 }
