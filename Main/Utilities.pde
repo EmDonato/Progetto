@@ -6,7 +6,7 @@ float[] dist;
 float[] startAndFinal(Move M)
 {
   //funzione che restituisce la posizione spaziale {xi,yi,zi,xf,yf,zf};
-  M.printMove();
+  //M.printMove();
   float[] positions = new float[6];
   float offset = 0.0;
   float xi = 0;
@@ -63,35 +63,4 @@ float[] distance(float[] p){
   dist[4] = sqrt((dist[2])*(dist[2]) + (dist[3])*(dist[3]));
   
   return(dist);
-}
-
-
-
-void drawTraiettoria(float[] d, float[] positions){
-
-  drawPositions(positions);
-  push();
-  strokeWeight(3);
-  fill(255,0,0);
-  stroke(255,0,0);
-  line(positions[0],positions[1],positions[2],positions[0],positions[1]-d[0],positions[2]);
-  line(positions[0],positions[1]-d[0],positions[2],positions[3],positions[1]-d[0],positions[5]);
-  line(positions[3],positions[4],positions[5],positions[3],positions[4]-d[1],positions[5]);
-  pop();
-
-}
-
-
-void drawPositions(float[] positions){
-  push();
-  fill(#EA0000);//rosso source
-  translate(positions[0], positions[1], positions[2]);
-  sphere(6);
-  pop();
-  push();
-  fill(#0050EA);// blue destination
-  translate(positions[3], positions[4], positions[5]);
-  sphere(6);
-  pop();
-
 }
