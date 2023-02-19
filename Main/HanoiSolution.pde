@@ -126,12 +126,12 @@ void Hanoi(int NumbDisk,Tower source,Tower dest,Tower aux ){
               m.fill(source.name,source.numb, dest.name, dest.numb + 1, source.lastDisk);
               m.printMove();
               Moves.add(m);
-              print("move disk from",source.name,"to",dest.name);
+             // print("move disk from",source.name,"to",dest.name);
               dest.add(source.lastDisk);
               source.remove();
-              print("\n");
-              print(source.name,':',source.numb,"\n",aux.name,':',aux.numb,"\n",dest.name,':',dest.numb,"\n");
-              print("\n");
+              //print("\n");
+              //print(source.name,':',source.numb,"\n",aux.name,':',aux.numb,"\n",dest.name,':',dest.numb,"\n");
+              //print("\n");
         
       }
       else{
@@ -141,12 +141,38 @@ void Hanoi(int NumbDisk,Tower source,Tower dest,Tower aux ){
               m.fill(source.name,source.numb, dest.name, dest.numb + 1,source.lastDisk);
               m.printMove();
               Moves.add(m);
-              print("move disk from",source.name,"to",dest.name);
+              //print("move disk from",source.name,"to",dest.name);
               dest.add(source.lastDisk);
               source.remove();
-              print("\n");
-              print(source.name,':',source.numb,"\n",aux.name,':',aux.numb,"\n",dest.name,':',dest.numb,"\n");
-              print("\n");
+              //print("\n");
+              //print(source.name,':',source.numb,"\n",aux.name,':',aux.numb,"\n",dest.name,':',dest.numb,"\n");
+              //print("\n");
               Hanoi(NumbDisk - 1, aux, dest, source);
       }
+}
+
+
+
+
+void moveDisk(float[] p, Move M){
+
+  
+  if(M.disk == 1){
+    UNOxx = p[0];
+    UNOyy = p[1];
+    UNOzz = p[2]-PosLingUNOz;
+  }
+  if(M.disk == 2){
+    DUExx = p[0];
+    DUEyy = p[1];
+    DUEzz = p[2]-PosLingDUEz;
+  }
+  if(M.disk == 3){
+    if(i < 1){
+      TRExx = TRExx - 1*(TRExx-p[0]);
+      TREyy =  TREyy - 1*(TREyy -p[1]);
+      TREzz = TREzz - 1*(TREzz - p[2]+PosLingTREz);
+    }
+  }
+  else;
 }
