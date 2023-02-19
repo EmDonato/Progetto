@@ -1,7 +1,7 @@
 class disco {
-  float x;
-  float y;
-  float z;
+  //float x;
+  //float y;
+  //float z;
   float r;
   float R;
   float h;
@@ -13,11 +13,11 @@ class disco {
     Llinguette=LungLing;
   }
   void DrawDisco(float Discx, float Discy, float Discz){
-    x = Discx;
-    y = Discy;
-    z = Discz;
+    //x = Discx;
+    //y = Discy;
+    //z = Discz;
     push();
-    translate(x,y,z);
+    translate(Discx,Discy,Discz);
     push();
     rotateX(PI/2);
     cilindroCavo(r,R,h);
