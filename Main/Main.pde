@@ -52,9 +52,9 @@ float RestDiscUNO=40.0; //Raggio esterno
   disco UNO =  new disco(RintDisc,RestDiscUNO,HeightDisc,Linguetta);
 
 //Coordinate iniziali disco UNO (grande)
-  float UNOx = -100.0;
-  float UNOy = -YBASE/2-HeightDisc/2;
-  float UNOz = zBaseTrasl;
+  float UNOxx = 0.0;
+  float UNOyy = 0.0;
+  float UNOzz = 0.0;
 
   //Coordinate iniziali punto presa della linguetta
   float PosLingUNOx=-100.0;;
@@ -66,12 +66,12 @@ float RestDiscDUE=30.0; //Raggio esterno
   disco DUE =  new disco(RintDisc,RestDiscDUE,HeightDisc,Linguetta);
   
 //Coordinate iniziali disco DUE (medio)
-  float DUEx=-100.0;
-  float DUEy=-YBASE/2-(3*HeightDisc)/2;
-  float DUEz= zBaseTrasl;
+  float DUExx = 0.0;
+  float DUEyy = 0.0;
+  float DUEzz = 0.0;
 
   //Coordinate iniziali punto presa della linguetta
-  float PosLingDUEx=-100.0;;
+  float PosLingDUEx=-100.0;
   float PosLingDUEy=-YBASE/2-(3*HeightDisc)/2;
   float PosLingDUEz=(RestDiscDUE/2)+Linguetta;
   
@@ -80,9 +80,9 @@ float RestDiscTRE=20.0; //Raggio esterno
   disco TRE =  new disco(RintDisc,RestDiscTRE,HeightDisc,Linguetta);
   
 //Coordinate iniziali disco TRE (piccolo)
-  float TREx=-100.0;
-  float TREy=-YBASE/2-(5*HeightDisc)/2;
-  float TREz= zBaseTrasl ;
+  float TRExx = 0.0;
+  float TREyy = 0.0;
+  float TREzz = 0.0;
   
   //Coordinate iniziali punto presa della linguetta
   float PosLingTREx=-100.0;;
@@ -122,51 +122,72 @@ void setup(){
   directionalLight(126,126,126,0,0,0.7);
   smooth(8);
   HanoiSolution(3);
-
+   UNOxx = -100.0;
+   UNOyy = -YBASE/2-HeightDisc/2;
+   UNOzz = zBaseTrasl;
+  
+   DUExx=-100.0;
+   DUEyy=-YBASE/2-(3*HeightDisc)/2;
+   DUEzz= zBaseTrasl;
+  
+   TRExx=-100.0;
+   TREyy=-YBASE/2-(5*HeightDisc)/2;
+   TREzz= zBaseTrasl ;
+   
 }
 
 void draw(){
   background(#979CF5);
   fill(#C99951);
   push();
-  UNO.DrawDisco(UNOx,UNOy,UNOz);
+  UNO.DrawDisco(UNOxx,UNOyy,UNOzz);
   pop();
   push();
-  DUE.DrawDisco(DUEx,DUEy,DUEz);
+  DUE.DrawDisco(DUExx,DUEyy,DUEzz);
   pop();
   push();
-  TRE.DrawDisco(TREx,TREy,TREz);
+  TRE.DrawDisco(TRExx,TREyy,TREzz);
   pop();
   push();
   Torre.DrawTh(xBaseTrasl,yBaseTrasl,zBaseTrasl);
   pop();
-  push();
-  strokeWeight(3);
-  push();
-  fill(255,0,0);
-  stroke(255,0,0);
-  line(0,0,0,200,0,0);
-  pop();
-  push();
-  fill(0,255,0);
-  stroke(0,255,0);
-  line(0,0,0,0,200,0);
-  pop();
-  push();
-  fill(0,0,255);
-  stroke(0,0,255);
-  line(0,0,0,0,0,200);
-  pop();
-  pop();
+  //push();
+  //strokeWeight(3);
+  //push();
+  //fill(255,0,0);
+  //stroke(255,0,0);
+  //line(0,0,0,200,0,0);
+  //pop();
+  //push();
+  //fill(0,255,0);
+  //stroke(0,255,0);
+  //line(0,0,0,0,200,0);
+  //pop();
+  //push();
+  //fill(0,0,255);
+  //stroke(0,0,255);
+  //line(0,0,0,0,0,200);
+  //pop();
+  //pop();
   
   M = Moves.get(j);
   posi = startAndFinal(M);
   
-  print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
+ // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
   distt = distance(posi);
-  print(distt[0],distt[1],distt[2],distt[3],distt[4]);
+ // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
   drawTraiettoria(distt, posi);
+      CurrentPosition = traiettoria(i, distt, posi);
+    delay(2);
+    drawCurrentPosition( CurrentPosition);
+    delay(2);
+    moveDisk(CurrentPosition,M);
+    CurrentPosition[0] = 0;
+    CurrentPosition[1] = 0;
+    CurrentPosition[2] = 0;
+
   i = i+ 0.01;
+  delay(2);
   if(i >= 1){
     i = 0.0;
      j++;
@@ -175,8 +196,7 @@ void draw(){
     }
    
   }
-    CurrentPosition = traiettoria(i, distt, posi);
-    drawCurrentPosition( CurrentPosition);
-  
+
+  print("\n\n",TRExx,TREyy,TREzz);
   
 }
