@@ -1,6 +1,12 @@
 import peasy.*;
 PeasyCam cam;
 
+
+
+PImage tx ;
+PShape robot;
+
+
 float q1r=PI;
 float q2r=0.0;
 float q3r=100.0;
@@ -40,19 +46,24 @@ void setup(){
   size(1300,750,P3D);
   cam = new PeasyCam(this, 400);
   background(#979CF5);
-  directionalLight(126,126,126,0,0,0.7);
+  directionalLight(126,60,126,30,0,0.7);
+  tx = loadImage("material1.jpg");
+  robot = loadShape("link3.obj");
+// robot.setTexture(tx);
 }
 
  void draw(){
    background(#979CF5);
    //translate(650,375);
-   
+   fill(255,0,0);
+   scale(.5);
+   shape(robot);
    q1=q1+TT*(q1-q1r);
    q2=q2+TT*(q2-q2r); 
    q3=q3+TT*(q3-q3r);
    q4=q4+TT*(q4-q4r);
    
-   SCARA();
+   
  }
  
 //funzione creazione cilindri
