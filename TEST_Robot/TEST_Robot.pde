@@ -21,7 +21,7 @@ void setup(){
 
 void draw(){
   background(#979CF5);
-  SCARA.DrawRobot(0,0,0);
+  SCARA.DrawRobot(PI,0,0);
   //shape(base);
   strokeWeight(3);
   push();
