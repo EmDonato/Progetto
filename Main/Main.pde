@@ -113,8 +113,13 @@ float[] CurrentPosition;
 float hOff = 30;
 
 float i = 0.0;
-
 int j = 0;
+
+int presa = -1;
+float[] posi0 = {0,0,0,0,0,0};
+float[] posic = {0,0,0,0,0,0};
+
+
 void setup(){
   size(1300,750,P3D);
   cam = new PeasyCam(this, 500);
@@ -170,33 +175,98 @@ void draw(){
   //pop();
   //pop();
   
-  M = Moves.get(j);
-  posi = startAndFinal(M);
-  
- // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
-  distt = distance(posi);
- // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
-  drawTraiettoria(distt, posi);
-      CurrentPosition = traiettoria(i, distt, posi);
-    delay(2);
-    drawCurrentPosition( CurrentPosition);
-    delay(2);
-    moveDisk(CurrentPosition,M);
-    CurrentPosition[0] = 0;
-    CurrentPosition[1] = 0;
-    CurrentPosition[2] = 0;
-
-  i = i+ 0.01;
-  delay(2);
-  if(i >= 1){
-    i = 0.0;
-     j++;
-    if(j == 7){
-      j = 0;
-    }
-   
+  if(presa == -1){
+      M = Moves.get(j);
+      posi = startAndFinal(M); 
+      // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
+      posi0[3] = posi[0]; posi0[4] = posi[1]; posi0[5] = posi[2];   
+       // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
+      drawTraiettoriaIniziale(posi0);
+      CurrentPosition = traiettoriaIniziale(i, posi0);
+      delay(2);
+      drawCurrentPosition( CurrentPosition);    
+      i = i+ 0.01;
+      delay(4);
+      if(i >= 1){
+        i = 0.0;
+        presa = 1;
+      } 
   }
+  
+  
+  else if(presa == 1){
+      M = Moves.get(j);
+      posi = startAndFinal(M); 
+      // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
+      posic[0] = posi[3]; posic[1] = posi[4]; posic[2] = posi[5]; 
+      distt = distance(posi);
+       // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
+      drawTraiettoria(distt, posi);
+      CurrentPosition = traiettoria(i, distt, posi);
+      delay(2);
+      drawCurrentPosition( CurrentPosition);
+      delay(2);
+      moveDisk(CurrentPosition,M);
+        i = i+ 0.01;
+      delay(2);
+      if(i >= 1){
+        i = 0.0;
+         j++;
+         presa = 0;
+        if(j == 7){
+          j = 0;
+          
+        } }
+        
+  }
+  else if(presa == 0){
+          
+          M = Moves.get(j);
+          posi = startAndFinal(M);
+          posic[3] = posi[0]; posic[4] = posi[1]; posic[5] = posi[2]; 
+          distt = distance(posic);
+       // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
+          drawTraiettoria(distt, posic);
+          CurrentPosition = traiettoria(i, distt, posic);
+          delay(2);
+          drawCurrentPosition( CurrentPosition);    
+          i = i+ 0.01;
+          delay(4);
+          if(i >= 1){
+            i = 0.0;
+            presa = 1;
+          }
+            
+  }
+  
+  
+  
+  //M = Moves.get(j);
+  //posi = startAndFinal(M); 
+  // // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
+  //distt = distance(posi);
+  // // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
+  //drawTraiettoria(distt, posi);
+  //CurrentPosition = traiettoria(i, distt, posi);
+  //delay(2);
+  //drawCurrentPosition( CurrentPosition);
+  //delay(2);
+  //moveDisk(CurrentPosition,M);
+    //CurrentPosition[0] = 0;
+    //CurrentPosition[1] = 0;
+    //CurrentPosition[2] = 0;
 
-  print("\n\n",TRExx,TREyy,TREzz);
+  //i = i+ 0.01;
+  //delay(2);
+  //if(i >= 1){
+  //  i = 0.0;
+  //   j++;
+  //  if(j == 7){
+  //    j = 0;
+  //  }
+   
+  //}
+
+  //print("\n\n",TRExx,TREyy,TREzz);
   
 }
