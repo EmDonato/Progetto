@@ -119,6 +119,8 @@ int presa = -1;
 float[] posi0 = {0,0,0,0,0,0};
 float[] posic = {0,0,0,0,0,0};
 
+float t = 0.0; //tempo corrente
+float tf = 5; // tempo finale
 
 void setup(){
   size(1300,750,P3D);
@@ -182,13 +184,16 @@ void draw(){
       posi0[3] = posi[0]; posi0[4] = posi[1]; posi0[5] = posi[2];   
        // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
       drawTraiettoriaIniziale(posi0);
+      i = minima_energia(t,tf);
       CurrentPosition = traiettoriaIniziale(i, posi0);
       delay(2);
       drawCurrentPosition( CurrentPosition);    
-      i = i+ 0.01;
+      t = t+ 0.01;
       delay(4);
-      if(i >= 1){
+      print("\n\n\n\n\n\n\n\n\n\n",i,"\n\n\n\n\n\n\n\n\n\n");
+      if(i >= 0.99){
         i = 0.0;
+        t = 0.0;
         presa = 1;
       } 
   }
@@ -202,15 +207,17 @@ void draw(){
       distt = distance(posi);
        // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
       drawTraiettoria(distt, posi);
+      i = minima_energia(t,tf);
       CurrentPosition = traiettoria(i, distt, posi);
       delay(2);
       drawCurrentPosition( CurrentPosition);
       delay(2);
       moveDisk(CurrentPosition,M);
-        i = i+ 0.01;
+        t = t+ 0.01;
       delay(2);
-      if(i >= 1){
+      if(i >= 0.99){
         i = 0.0;
+        t = 0.0;
          j++;
          presa = 0;
         if(j == 7){
@@ -227,13 +234,15 @@ void draw(){
           distt = distance(posic);
        // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
           drawTraiettoria(distt, posic);
+          i = minima_energia(t,tf);
           CurrentPosition = traiettoria(i, distt, posic);
           delay(2);
           drawCurrentPosition( CurrentPosition);    
-          i = i+ 0.01;
+          t = t+ 0.01;
           delay(4);
-          if(i >= 1){
+          if(i >= 0.99){
             i = 0.0;
+            t = 0.0;
             presa = 1;
           }
             
