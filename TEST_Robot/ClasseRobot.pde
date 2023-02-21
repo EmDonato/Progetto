@@ -140,13 +140,13 @@ void assi(){
 }
 
 void CinematicaInversa(float xf,float yf, float zf, float phi){
-  q3r=yf-L1-L2;
+  q3r= -yf-HBaseBot + Llink1 +rpolso;
   float C2=((zf*zf)+(xf*xf)-((D2+L4)*(D2+L4))-(D1*D1))/(2*(D2+L4)*D1);
   float S2=gomito*sqrt(1-(C2*C2));
-  q2r=atan2(S2,C2);
+  q2r=atan2(S2,C2) ;
   float C1=zf*(C2*(D2+L4)+D1)+xf*(S2*(D2+L4));
   float S1=-zf*(S2*(D2+L4))+xf*(C2*(D2+L4)+D1);
-  q1r=atan2(S1,C1);
-  q4r=phi-q1r-q2r;
+  q1r=atan2(S1,C1) - PI/2;
+  q4r=(phi);
   
 }
