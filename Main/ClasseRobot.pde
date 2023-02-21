@@ -97,7 +97,7 @@ void link3P(float d3){
 void polso(float theta4){
   push();
   translate(0,rpolso,0); //di quanto il polso è traslato in giù
-  rotateX(theta4);
+  rotateY(theta4);
   push();
   //assi();
   sphere(rpolso);
@@ -140,13 +140,14 @@ void assi(){
 }
 
 void CinematicaInversa(float xf,float yf, float zf, float phi){
+  float znew = zf+L4;
   q3r= -yf + Llink1 +rpolso; //-HBaseBot
-  float C2=((zf*zf)+(xf*xf)-((D2+L4)*(D2+L4))-(D1*D1))/(2*(D2+L4)*D1);
+  float C2=((znew*znew)+(xf*xf)-((D2+0)*(D2+0))-(D1*D1))/(2*(D2+0)*D1);
   float S2=gomito*sqrt(1-(C2*C2));
   q2r=atan2(S2,C2);
-  float C1=zf*(C2*(D2+L4)+D1)+xf*(S2*(D2+L4));
-  float S1=-zf*(S2*(D2+L4))+xf*(C2*(D2+L4)+D1);
+  float C1=znew*(C2*(D2+0)+D1)+xf*(S2*(D2+0));
+  float S1=-znew*(S2*(D2+0))+xf*(C2*(D2+0)+D1);
   q1r=atan2(S1,C1) + PI;
-  q4r=(phi);
+  q4r=(phi-q2r-q1r);
   
 }
