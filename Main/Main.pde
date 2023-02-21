@@ -209,24 +209,24 @@ void draw(){
   Robot SCARA = new Robot(q1,q2,q3,q4);
   SCARA.DrawRobot(0,0,0);
   pop();
-  //push();
-  //strokeWeight(3);
-  //push();
-  //fill(255,0,0);
-  //stroke(255,0,0);
-  //line(0,0,0,200,0,0);
-  //pop();
-  //push();
-  //fill(0,255,0);
-  //stroke(0,255,0);
-  //line(0,0,0,0,200,0);
-  //pop();
-  //push();
-  //fill(0,0,255);
-  //stroke(0,0,255);
-  //line(0,0,0,0,0,200);
-  //pop();
-  //pop();
+  push();
+  strokeWeight(3);
+  push();
+  fill(255,0,0);
+  stroke(255,0,0);
+  line(0,0,0,200,0,0);
+  pop();
+  push();
+  fill(0,255,0);
+  stroke(0,255,0);
+  line(0,0,0,0,200,0);
+  pop();
+  push();
+  fill(0,0,255);
+  stroke(0,0,255);
+  line(0,0,0,0,0,200);
+  pop();
+  pop();
   
   if(presa == -1){
       M = Moves.get(j);
@@ -237,7 +237,7 @@ void draw(){
       drawTraiettoriaIniziale(posi0);
       i = minima_energia(t,tf);
       CurrentPosition = traiettoriaIniziale(i, posi0);
-      
+      phi = atan2( CurrentPosition[2],-CurrentPosition[0]);
       CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0);
       delay(2);
       drawCurrentPosition( CurrentPosition);    
@@ -292,6 +292,7 @@ void draw(){
           drawTraiettoria(distt, posic);
           i = minima_energia(t,tf);
           CurrentPosition = traiettoria(i, distt, posic);
+          phi = atan2( CurrentPosition[0],CurrentPosition[2]);
           CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0);
                 print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
 
