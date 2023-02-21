@@ -42,13 +42,13 @@ void draw(){
   q3=q3+TT*(q3-q3r);
   q4=q4+TT*(q4-q4r);
   push();
-  translate(150,-150,150);
+  translate(-180,-50,100);
   sphere(20);
   pop();
   Robot SCARA = new Robot(q1,q2,q3,q4);
   SCARA.DrawRobot(0,0,0);
   
-  CinematicaInversa(150,-150,150,PI);
+  CinematicaInversa( -180,-50,100,0);
   
   strokeWeight(3);
   push();
