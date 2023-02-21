@@ -7,14 +7,11 @@ Move M;
 import peasy.*;
 PeasyCam cam;
 
-//Posizione traslazione base
-float xBaseTrasl = 0.0;
-float yBaseTrasl = 0.0;
-float zBaseTrasl = -100.0;
+
 
 // Raggio e altezza dei pali A,B e C
 float raggioP=15.0;
-float altezzaP=100.0;
+float altezzaP=70.0;
 
 //Coordinate Palo A (Default: quello a sinistra)
 float posPaloAx=-100.0;
@@ -35,6 +32,13 @@ float posPaloCz= 0.0;
 float XBASE=300.0;
 float YBASE=20.0;
 float ZBASE=100.0;
+
+
+//Posizione traslazione base
+float xBaseTrasl = 0.0;
+float yBaseTrasl = 0;
+float zBaseTrasl = -300.0;
+
 
 TorreDiHanoi Torre= new TorreDiHanoi(XBASE,YBASE,ZBASE);
 
@@ -104,6 +108,9 @@ Float LvCx=posPaloCx + xBaseTrasl;   Float Lv1Cy=-YBASE/2-HeightDisc/2 + yBaseTr
                                      Float Lv2Cy=-YBASE/2-(3*HeightDisc)/2 + yBaseTrasl; 
                                      float Lv3Cy=-YBASE/2-(5*HeightDisc)/2 + yBaseTrasl; 
 
+
+
+
 // posizioni della mossa
 float[] posi;
 float[] distt;
@@ -116,11 +123,40 @@ float i = 0.0;
 int j = 0;
 
 int presa = -1;
-float[] posi0 = {0,0,0,0,0,0};
+float[] posi0 = {-100,-25,0,0,0,0};
 float[] posic = {0,0,0,0,0,0};
 
 float t = 0.0; //tempo corrente
 float tf = 5; // tempo finale
+float phi;
+
+// robot
+
+PShape base;
+PShape Link1;
+PShape Link2;
+PShape Link3;
+
+float q1=0.0;
+float q2=0.0;
+float q3=0.0;
+float q4=0.0;
+
+float q1r=0.0;
+float q2r=0.0;
+float q3r=0.0;
+float q4r=0.0;
+
+float tasto=1;
+float TT=-0.02;
+float incR=0.5;
+float incP=10.0;
+
+
+
+
+
+
 
 void setup(){
   size(1300,750,P3D);
@@ -141,6 +177,11 @@ void setup(){
    TREyy=-YBASE/2-(5*HeightDisc)/2;
    TREzz= zBaseTrasl ;
    
+    base =loadShape("base.obj");
+    Link1=loadShape("link1.obj");
+    Link2=loadShape("link2.obj");
+    Link3=loadShape("link3.obj");
+   
 }
 
 void draw(){
@@ -157,6 +198,16 @@ void draw(){
   pop();
   push();
   Torre.DrawTh(xBaseTrasl,yBaseTrasl,zBaseTrasl);
+  pop();
+  // variabili di giunto 
+  q1=q1r;
+  q2=q2r; 
+  q3=q3r;
+  q4=q4r;
+  push();
+  rotateY(PI/2);
+  Robot SCARA = new Robot(q1,q2,q3,q4);
+  SCARA.DrawRobot(0,0,0);
   pop();
   //push();
   //strokeWeight(3);
@@ -186,11 +237,13 @@ void draw(){
       drawTraiettoriaIniziale(posi0);
       i = minima_energia(t,tf);
       CurrentPosition = traiettoriaIniziale(i, posi0);
+      
+      CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0);
       delay(2);
       drawCurrentPosition( CurrentPosition);    
       t = t+ 0.01;
       delay(4);
-      print("\n\n\n\n\n\n\n\n\n\n",i,"\n\n\n\n\n\n\n\n\n\n");
+      print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
       if(i >= 0.99){
         i = 0.0;
         t = 0.0;
@@ -209,6 +262,9 @@ void draw(){
       drawTraiettoria(distt, posi);
       i = minima_energia(t,tf);
       CurrentPosition = traiettoria(i, distt, posi);
+      CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0);
+            print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
+
       delay(2);
       drawCurrentPosition( CurrentPosition);
       delay(2);
@@ -236,6 +292,9 @@ void draw(){
           drawTraiettoria(distt, posic);
           i = minima_energia(t,tf);
           CurrentPosition = traiettoria(i, distt, posic);
+          CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0);
+                print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
+
           delay(2);
           drawCurrentPosition( CurrentPosition);    
           t = t+ 0.01;
