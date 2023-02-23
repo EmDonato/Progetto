@@ -127,7 +127,7 @@ float[] posi0 = {-100,-25,0,0,0,0};
 float[] posic = {0,0,0,0,0,0};
 
 float t = 0.0; //tempo corrente
-float tf = 5; // tempo finale
+float tf = 2; // tempo finale
 float phi;
 
 // robot
@@ -209,24 +209,24 @@ void draw(){
   Robot SCARA = new Robot(q1,q2,q3,q4);
   SCARA.DrawRobot(0,0,0);
   pop();
-  push();
-  strokeWeight(3);
-  push();
-  fill(255,0,0);
-  stroke(255,0,0);
-  line(0,0,0,200,0,0);
-  pop();
-  push();
-  fill(0,255,0);
-  stroke(0,255,0);
-  line(0,0,0,0,200,0);
-  pop();
-  push();
-  fill(0,0,255);
-  stroke(0,0,255);
-  line(0,0,0,0,0,200);
-  pop();
-  pop();
+  //push();
+  //strokeWeight(3);
+  //push();
+  //fill(255,0,0);
+  //stroke(255,0,0);
+  //line(0,0,0,200,0,0);
+  //pop();
+  //push();
+  //fill(0,255,0);
+  //stroke(0,255,0);
+  //line(0,0,0,0,200,0);
+  //pop();
+  //push();
+  //fill(0,0,255);
+  //stroke(0,0,255);
+  //line(0,0,0,0,0,200);
+  //pop();
+  //pop();
   
   if(presa == -1){
       M = Moves.get(j);
@@ -263,7 +263,7 @@ void draw(){
       i = minima_energia(t,tf);
       CurrentPosition = traiettoria(i, distt, posi);
       CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0);
-            print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
+          //  print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
 
       delay(2);
       drawCurrentPosition( CurrentPosition);
