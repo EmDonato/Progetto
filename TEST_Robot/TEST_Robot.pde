@@ -48,7 +48,7 @@ void draw(){
   Robot SCARA = new Robot(q1,q2,q3,q4);
   SCARA.DrawRobot(0,0,0);
   
-  CinematicaInversa( -180,-50,100,0);
+//  CinematicaInversa( -180,-50,100,0);
   
   strokeWeight(3);
   push();
