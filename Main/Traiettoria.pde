@@ -4,10 +4,14 @@
 float[] traiettoria(float i,float[] dist, float[] startfinal){
 
   float[] posizione = { 0, 0, 0 }; // x, y, z
-  float d = (dist[0])+ ( dist[1] ) + (dist[4]);
+  float semiC = HALF_PI * dist[4] ;
+  float raggio = dist[4]/2;
+  float phi = 0.0;
+  int segno_angolo = 1;
+  
+  float d = (dist[0])+ ( dist[1] ) + (semiC);
   int aus = 1;
-  float dx = 0.0;
-  float dz = 0.0;
+  float dx = 0.0; float dz = 0.0; float dy = 0.0;
   float alpha = 0 ;
   int direzione = 1;
   int[] direction = { 0, 0, 0 }; // x, y, z
@@ -17,18 +21,25 @@ float[] traiettoria(float i,float[] dist, float[] startfinal){
   //if(startfinal[0]<startfinal[3]) direzione = 1;
   //else direzione = -1;
   
-  if(dist[2] == 0.0) alpha = 0;
   
+  if(dist[2] == 0.0) alpha = 0;  
   if(dist[3] == 0.0) alpha = PI/2;
   else alpha = atan2(dist[2],dist[3]);
 
 
-  print("\n\n\n\n\n\n\n\n\n ",dist[2], dist[3],alpha,"\n\n\n\n\n\n\n\n\n ");
+  //print("\n\n\n\n\n\n\n\n\n ",dist[2], dist[3],alpha,"\n\n\n\n\n\n\n\n\n ");
   
   
   if(i*d <= dist[0]) aus = 1;
-  else if(i*d <= dist[4] + (dist[0]) && i*d > dist[0]) aus = 2;
-  else if(i*d <= d && i*d > ( dist[0]) + dist[4]) aus = 3;
+  
+  else if(i*d <= semiC + (dist[0]) && i*d > dist[0]){
+    
+    aus = 2;
+    phi = ((i*d - dist[0])/raggio);
+    
+  
+  }
+  else if(i*d <= d && i*d > ( dist[0]) + semiC) aus = 3;
   
   if(aus == 1) {
     posizione[0] = startfinal[0];
@@ -37,14 +48,26 @@ float[] traiettoria(float i,float[] dist, float[] startfinal){
   } 
   if(aus == 2) {
     
-    dx = sin(alpha)*(i*d - dist[0]);
-    dz = cos(alpha)*(i*d - dist[0]);
-    posizione[0] = startfinal[0] + direction[0]*dx; // x
-    posizione[2] = startfinal[2] +  direction[2]*dz; // z
-    posizione[1] = startfinal[1]-dist[0];  // y
+    if(phi-HALF_PI < 0) segno_angolo = 1;  
+    else{ 
+      
+      segno_angolo = -1;
+
+}
+    
+    dx = (raggio-raggio*cos(phi))*sin(alpha); //sin(alpha)// dx = segno_angolo*sin(phi)*sin(alpha)*corda;     dz = segno_angolo*sin(phi)*cos(alpha)*corda;
+
+    dz = (raggio-raggio*cos(phi))*cos(alpha); 
+    dy = raggio * sin(phi);
+    
+    
+    
+    posizione[0] = startfinal[0] + direction[0]*(dx); // x
+    posizione[2] = startfinal[2] +  direction[2]*(dz); // z
+    posizione[1] = startfinal[1] - dist[0] - 1*dy;  // y
   } 
   if(aus == 3 ){
- 
+
     posizione[0] = startfinal[3];
     posizione[2] = startfinal[5];
     posizione[1] = startfinal[4] + (i*d - d);
