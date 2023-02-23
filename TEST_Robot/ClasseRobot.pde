@@ -97,7 +97,7 @@ void link3P(float d3){
 void polso(float theta4){
   push();
   translate(0,rpolso,0); //di quanto il polso è traslato in giù
-  rotateX(theta4);
+  rotateY(theta4);
   push();
   //assi();
   sphere(rpolso);
