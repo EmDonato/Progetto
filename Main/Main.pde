@@ -37,7 +37,7 @@ float ZBASE=100.0;
 //Posizione traslazione base
 float xBaseTrasl = 0.0;
 float yBaseTrasl = 0;
-float zBaseTrasl = -300.0;
+float zBaseTrasl = -400.0;
 
 
 TorreDiHanoi Torre= new TorreDiHanoi(XBASE,YBASE,ZBASE);
@@ -121,14 +121,18 @@ float hOff = 30;
 
 float i = 0.0;
 int j = 0;
+int show = 0;
+
 
 int presa = -1;
-float[] posi0 = {-100,-25,0,0,0,0};
+
 float[] posic = {0,0,0,0,0,0};
 
 float t = 0.0; //tempo corrente
 float tf = 2; // tempo finale
 float phi;
+int finalcut = 0;
+
 
 // robot
 
@@ -136,16 +140,24 @@ PShape base;
 PShape Link1;
 PShape Link2;
 PShape Link3;
+PShape Link4;
+PShape Link5;
+PShape Link6;
+
+
 
 float q1=0.0;
 float q2=0.0;
 float q3=0.0;
 float q4=0.0;
+float q5=0.0;
 
 float q1r=0.0;
 float q2r=0.0;
 float q3r=0.0;
 float q4r=0.0;
+float q5r=0.0;
+
 
 float tasto=1;
 float TT=-0.02;
@@ -154,7 +166,7 @@ float incP=10.0;
 
 
 
-
+int ausiliarInitialTrajector = 0;
 
 
 
@@ -176,12 +188,15 @@ void setup(){
    TRExx=-100.0;
    TREyy=-YBASE/2-(5*HeightDisc)/2;
    TREzz= zBaseTrasl ;
-   
-    base =loadShape("base.obj");
-    Link1=loadShape("link1.obj");
-    Link2=loadShape("link2.obj");
-    Link3=loadShape("link3.obj");
-   
+    Link6=loadShape("hand.obj");
+    base =loadShape("base1.obj");
+    Link1=loadShape("link1_1.obj");
+    Link2=loadShape("link2_1.obj");
+    Link3=loadShape("link3_1.obj");
+    Link4=loadShape("link4.obj");
+    Link5=loadShape("link5.obj");
+    
+
 }
 
 void draw(){
@@ -204,69 +219,95 @@ void draw(){
   q2=q2r; 
   q3=q3r;
   q4=q4r;
+  q5=q5r;
   push();
   rotateY(PI/2);
-  Robot SCARA = new Robot(q1,q2,q3,q4);
+  Robot SCARA = new Robot(q1,q2,q3,q4,q5);
   SCARA.DrawRobot(0,0,0);
   pop();
-  //push();
-  //strokeWeight(3);
-  //push();
-  //fill(255,0,0);
-  //stroke(255,0,0);
-  //line(0,0,0,200,0,0);
-  //pop();
-  //push();
-  //fill(0,255,0);
-  //stroke(0,255,0);
-  //line(0,0,0,0,200,0);
-  //pop();
-  //push();
-  //fill(0,0,255);
-  //stroke(0,0,255);
-  //line(0,0,0,0,0,200);
-  //pop();
-  //pop();
+  push();
+  strokeWeight(3);
+  push();
+  fill(255,0,0);
+  stroke(255,0,0);
+  line(0,0,0,200,0,0);
+  pop();
+  push();
+  fill(0,255,0);
+  stroke(0,255,0);
+  line(0,0,0,0,200,0);
+  pop();
+  push();
+  fill(0,0,255);
+  stroke(0,0,255);
+  line(0,0,0,0,0,200);
+  pop();
+  pop();
   
-  if(presa == -1){
+  if(presa == -1 && finalcut == 0){
       M = Moves.get(j);
       posi = startAndFinal(M); 
       // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
       posi0[3] = posi[0]; posi0[4] = posi[1]; posi0[5] = posi[2];   
-       // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
-      drawTraiettoriaIniziale(posi0);
+       // print(distt[0],distt[1],distt[2],distt[3],distt[4]);   
       i = minima_energia(t,tf);
-      CurrentPosition = traiettoriaIniziale(i, posi0);
+      CurrentPosition = traiettoriaIniziale(i, posi0, ausiliarInitialTrajector);
       phi = atan2( CurrentPosition[2],-CurrentPosition[0]);
-      CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0);
+      CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
       delay(2);
-      drawCurrentPosition( CurrentPosition);    
+      if(show==1){
+        drawTraiettoriaIniziale(posi0);
+        drawCurrentPosition( CurrentPosition); 
+      }
       t = t+ 0.01;
       delay(4);
-      print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
-      if(i >= 0.99){
+      if(i >= 0.999){
         i = 0.0;
         t = 0.0;
-        presa = 1;
+        ausiliarInitialTrajector ++;
+        if(ausiliarInitialTrajector == 4) 
+        {
+          presa = 2;
+        }
+        
       } 
   }
   
+  else if(presa == 2  && finalcut == 0){
   
-  else if(presa == 1){
+          q5r = q5r + 0.05*(HALF_PI-q5r);
+          if(abs(q5 - HALF_PI)<0.01)
+          presa = 1;
+  
+  }
+  else if(presa == 3  && finalcut == 0){
+  
+          q5r = q5r + 0.05*(0-q5r);
+          if(abs(q5 - 0)<0.01)
+          presa = 0;
+  
+  }
+    
+  
+  else if(presa == 1  && finalcut == 0){
       M = Moves.get(j);
       posi = startAndFinal(M); 
       // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
       posic[0] = posi[3]; posic[1] = posi[4]; posic[2] = posi[5]; 
       distt = distance(posi);
        // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
-      drawTraiettoria(distt, posi);
       i = minima_energia(t,tf);
       CurrentPosition = traiettoria(i, distt, posi);
-      CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0);
+      CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,HALF_PI);
           //  print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
 
       delay(2);
-      drawCurrentPosition( CurrentPosition);
+      if(show==1){
+       
+        drawTraiettoria(distt, posi);
+        drawCurrentPosition( CurrentPosition);
+        
+      }
       delay(2);
       moveDisk(CurrentPosition,M);
         t = t+ 0.01;
@@ -275,38 +316,70 @@ void draw(){
         i = 0.0;
         t = 0.0;
          j++;
-         presa = 0;
+         presa = 3;
         if(j == 7){
           j = 0;
-          
+          //posif[0] = posic[3]; posif[1] = posic[4]; posif[2] = posic[5]; 
+          finalcut = 1;
         } }
         
   }
-  else if(presa == 0){
+  else if(presa == 0  && finalcut == 0){
           
           M = Moves.get(j);
           posi = startAndFinal(M);
           posic[3] = posi[0]; posic[4] = posi[1]; posic[5] = posi[2]; 
           distt = distance(posic);
-       // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
-          drawTraiettoria(distt, posic);
           i = minima_energia(t,tf);
           CurrentPosition = traiettoria(i, distt, posic);
           phi = atan2( CurrentPosition[0],CurrentPosition[2]);
-          CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0);
-                print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
-
+          CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
           delay(2);
-          drawCurrentPosition( CurrentPosition);    
+          if(show==1){
+           
+            drawTraiettoria(distt, posic);
+            drawCurrentPosition( CurrentPosition);
+            
+          }   
           t = t+ 0.01;
           delay(4);
-          if(i >= 0.99){
+          if(i >= 0.999){
             i = 0.0;
             t = 0.0;
-            presa = 1;
+            presa = 2;
           }
+   
+   if(finalcut == 1){
+                   
+                  print("\n\n\n\n\n\n","ENDENDENDEDNEDNEDNEDNEDNEDENDENDENDEDN","\n\n\n\n\n\n");
+
+          //posif[0] = posi[3]; posif[1] = posi[4]; posif[2] = posi[5]; 
+          //print("\n\n\n\n\n\n",posif[0],posif[1],posif[2],posif[3],posif[4],posif[5],"\n\n\n\n\n\n");
+
+          //distt = distance(posif);
+          //i = minima_energia(t,tf);
+          //CurrentPosition = traiettoriaIniziale(i, posif, ausiliarInitialTrajector);
+          //phi = atan2( CurrentPosition[2],-CurrentPosition[0]);
+          //CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
+          //delay(2);
+          //if(show==1){
+          //  drawTraiettoriaIniziale(posif);
+          //  drawCurrentPosition( CurrentPosition); 
+          //}
+          //t = t+ 0.01;
+          //delay(4);
+          //if(i >= 0.999){
+          //  i = 0.0;
+          //  t = 0.0;
+          //  ausiliarInitialTrajector ++;
+          //  if(ausiliarInitialTrajector == 4) 
+          //  {
+          //    presa = 2;
+          //  }
             
-  }
+   //       }      
+   } 
+}
   
   
   
@@ -338,4 +411,15 @@ void draw(){
 
   //print("\n\n",TRExx,TREyy,TREzz);
   
+}
+
+
+
+void keyPressed(){
+  if (key  == 's'){
+    
+    show++;
+    show = show % 2;
+    
+  }
 }

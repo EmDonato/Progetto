@@ -1,15 +1,15 @@
 //Valori noti DH 
-float L1=130.0;
-float D1=100.0;
-float L2=0.0;
-float D2=130.0;
-float L4=30.0;
+float L1=2*130.0;
+float D1=2*100.0;
+float L2=2*0.0;
+float D2=2*130.0;
+float L4=2*30.0;
 float gomito=1.0;
 
-float HBaseBot=100.0;
-float H_L1=30.0;
-float Llink1=100.0;
-float Llink2=130.0;
+float HBaseBot=2*100.0;
+float H_L1=2*30.0;
+float Llink1=2*100.0;
+float Llink2=2*130.0;
 
 float rpolso=15.0; //raggio sfera polso
 
@@ -27,6 +27,10 @@ float basePinzZ=40.0;
 float ditapinzX=20.0;
 float ditapinzY=10.0;
 float ditapinzZ=10.0;
+float offsetq3 = -15 ;
+
+float[] posi0 = { 0,-HBaseBot-H_L1-2*offsetq3,-L4-D1-D2,0,0,0}; // posizione iniziale
+float[] posif = { 0, 0, 0,0,-HBaseBot-H_L1-2*offsetq3,-L4-D1-D2}; // posizione finale
 
 class Robot {
   float x;
@@ -34,14 +38,16 @@ class Robot {
   float z;
   float q1R;
   float q2R;
-  float q3P;
+  float q3R;
   float q4R;
+  float q5R;
   
-  Robot(float giunto1, float giunto2, float giunto3, float giunto4){
+  Robot(float giunto1, float giunto2, float giunto3, float giunto4,float giunto5){
     q1R=giunto1;
     q2R=giunto2;
-    q3P=giunto3;
+    q3R=giunto3;
     q4R=giunto4;
+    q5R=giunto5;
   }
   
   void DrawRobot(float Robotx, float Roboty, float Robotz){
@@ -54,8 +60,8 @@ class Robot {
     baseRobot();
     link1R(q1R);
     link2R(q2R);
-    link3P(q3P);
-    polso(q4R);
+    link3P(q3R);
+    polso(q4R, q5R);
     pop();
     pop();
   }
@@ -94,28 +100,29 @@ void link3P(float d3){
   //assi();
   pop();
 }
-void polso(float theta4){
+void polso(float theta4, float theta5){ //, float theta5
   push();
   translate(0,rpolso,0); //di quanto il polso è traslato in giù
-  rotateY(theta4);
+  rotateY(theta4 - HALF_PI);
   push();
   //assi();
-  sphere(rpolso);
+  //sphere(rpolso);
   push();
   translate(polsoPinzX/2,0,0);
-  box(polsoPinzX,polsoPinzY,polsoPinzZ);
-  pop();
-  translate(polsoPinzX+basePinzX/2,0,0);
-  box(basePinzX,basePinzY,basePinzZ);
-  //assi();
   push();
-  translate((ditapinzX)-(basePinzX/2),0,(basePinzZ/2)-(ditapinzZ/2));
-  box(ditapinzX,ditapinzY,ditapinzZ);
+  translate(-10,0,-3);
+  rotateX(HALF_PI);
+  shape(Link4);
   pop();
-  push();
-  translate((ditapinzX)-(basePinzX/2),0,-(basePinzZ/2)+(ditapinzZ/2));
-  box(ditapinzX,ditapinzY,ditapinzZ);
+  translate(-12,-5,-3);
+  translate(0,50,0);
+  shape(Link5);
+  rotateX(PI);
+  translate(0,0,25);
+  rotateZ(theta5);
+  shape(Link6);
   pop();
+ 
   pop();
   pop();
 }
@@ -139,9 +146,9 @@ void assi(){
   pop();
 }
 
-void CinematicaInversa(float xf,float yf, float zf, float phi){
+void CinematicaInversa(float xf,float yf, float zf, float phi, float rho){
   float znew = zf+L4;
-  q3r= -yf + Llink1 +rpolso; //-HBaseBot
+  q3r= -yf + Llink1 +rpolso + offsetq3; //-HBaseBot
   float C2=((znew*znew)+(xf*xf)-((D2+0)*(D2+0))-(D1*D1))/(2*(D2+0)*D1);
   float S2=gomito*sqrt(1-(C2*C2));
   q2r=atan2(S2,C2);
@@ -149,5 +156,6 @@ void CinematicaInversa(float xf,float yf, float zf, float phi){
   float S1=-znew*(S2*(D2+0))+xf*(C2*(D2+0)+D1);
   q1r=atan2(S1,C1) + PI;
   q4r=(phi-q2r-q1r);
+  q5r = rho;
   
 }

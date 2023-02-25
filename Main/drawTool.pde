@@ -7,11 +7,7 @@ void drawTraiettoria(float[] d, float[] positions){
   float alpha = 0.0;
   int segno = 1;
   int segno1 = 1;
-  float xcur;
-  if(abs(positions[0]) -  abs(positions[3])> 0.0) xcur = positions[3];
-  else xcur = positions[0];
-  
-  
+
   alpha = atan2(d[2],d[3]);
  
   segno = signum(positions[3] - positions[0]);
@@ -26,7 +22,6 @@ void drawTraiettoria(float[] d, float[] positions){
  
   if(positions[0] < positions[3]){
     if(abs(positions[5]) - abs(positions[2]) < 0){
-      print("ciaooooooooooooooooooooooooo");
       segno1 = -1;
     }
   
@@ -40,9 +35,7 @@ void drawTraiettoria(float[] d, float[] positions){
   strokeWeight(3);
   fill(255,0,0);
   stroke(255,0,0);
-  line(positions[0],positions[1],positions[2],positions[0],positions[1]-d[0],positions[2]);
-  line(positions[0],positions[1]-d[0],positions[2],positions[3],positions[1]-d[0],positions[5]);
-  
+  line(positions[0],positions[1],positions[2],positions[0],positions[1]-d[0],positions[2]);  
   push();
   noFill();
   
@@ -58,6 +51,20 @@ void drawTraiettoria(float[] d, float[] positions){
 }
 
 
+//void drawTraiettoriaIniziale(float[] positions){
+
+//  drawPositions(positions);
+//  push();
+//  strokeWeight(3);
+//  fill(255,0,0);
+//  stroke(255,0,0);
+//  line(positions[0],positions[1],positions[2],positions[0],positions[4],positions[2]);
+//  line(positions[0],positions[4],positions[2],positions[3],positions[4],positions[2]);
+//  line(positions[3],positions[4],positions[2],positions[3],positions[4],positions[5]);
+//  pop();
+
+//}
+
 void drawTraiettoriaIniziale(float[] positions){
 
   drawPositions(positions);
@@ -65,14 +72,13 @@ void drawTraiettoriaIniziale(float[] positions){
   strokeWeight(3);
   fill(255,0,0);
   stroke(255,0,0);
-  line(positions[0],positions[1],positions[2],positions[0],positions[4],positions[2]);
-  line(positions[0],positions[4],positions[2],positions[3],positions[4],positions[2]);
-  line(positions[3],positions[4],positions[2],positions[3],positions[4],positions[5]);
+  line(positions[0],positions[1],positions[2],positions[0],positions[1]+hOff+ altezzaP + YBASE,positions[2]);
+  line(positions[0],positions[1]+hOff+ altezzaP + YBASE,positions[2],positions[0],positions[1] +hOff+ altezzaP + YBASE,positions[5]);
+  line(positions[0],positions[1] +hOff+ altezzaP + YBASE,positions[5],positions[3],positions[1] +hOff+ altezzaP + YBASE,positions[5]);
+  line(positions[3],positions[1] +hOff+ altezzaP + YBASE,positions[5],positions[3],positions[4],positions[5]);
   pop();
 
 }
-
-
 
 void drawPositions(float[] positions){
   push();

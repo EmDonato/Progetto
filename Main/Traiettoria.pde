@@ -75,43 +75,91 @@ float[] traiettoria(float i,float[] dist, float[] startfinal){
   return(posizione);
 }
 
-float[] traiettoriaIniziale(float i, float[] startfinal){
+//float[] traiettoriaIniziale(float i, float[] startfinal, int ausiliarInitialTrajector){
+  
+//  float[] posizione = { 0, 0, 0 }; // x, y, z
+//  float[] distance = { 0, 0, 0};  // x, y, z
+//  int[] direction = { 0, 0, 0 }; // x, y, z
+  
+//  int aus = 0;
+  
+//  distance[0] = abs(- abs(startfinal[0]) + abs(startfinal[3]));
+//  distance[1] = abs(- abs(startfinal[1]) + abs(startfinal[4]));
+//  distance[2] = abs(- abs(startfinal[2]) + abs(startfinal[5]));
+//  float d = distance[0] + distance[1] + distance[2] ;
+  
+//  if(i*d <= distance[1]) aus = 1;
+//  else if(i*d <= distance[0] + (distance[1]) && i*d > distance[1]) aus = 2;
+//  else if(i*d <= d && i*d > ( distance[0]) + distance[1]) aus = 3;
+  
+//  direction[0] = signum(startfinal[3] - startfinal[0]);
+//  direction[1] = signum(startfinal[4] - startfinal[1]);
+//  direction[2] = signum(startfinal[5] - startfinal[2]);
+  
+//  if(aus == 1) {
+//    posizione[0] = startfinal[0]; //x
+//    posizione[2] = startfinal[2];  //z
+//    posizione[1] = startfinal[1] + direction[1]*i*d; // y
+//  } 
+//  if(aus == 2) {
+//    posizione[0] = startfinal[0]+ direction[0]*(i*d - distance[1]);//x
+//    posizione[2] = startfinal[2];  //z
+//    posizione[1] = startfinal[4]; // y
+//  } 
+//  if(aus == 3 ){
+//    posizione[0] = startfinal[3]; //x
+//    posizione[2] = startfinal[5] + direction[2]*(i*d - d);  //z
+//    posizione[1] = startfinal[4]; // y
+//  } 
+  
+  
+//  return(posizione);
+//}
+
+
+float[] traiettoriaIniziale(float i, float[] startfinal, int ausiliarInitialTrajector){
   
   float[] posizione = { 0, 0, 0 }; // x, y, z
-  float[] distance = { 0, 0, 0};  // x, y, z
+  float[] distance = { 0, 0, 0, 0};  // x, y1, z, y2
   int[] direction = { 0, 0, 0 }; // x, y, z
   
-  int aus = 0;
+  float d;
   
   distance[0] = abs(- abs(startfinal[0]) + abs(startfinal[3]));
-  distance[1] = abs(- abs(startfinal[1]) + abs(startfinal[4]));
+  distance[1] = abs(- abs(startfinal[1]) + abs(startfinal[1]+  hOff+ altezzaP + YBASE));
   distance[2] = abs(- abs(startfinal[2]) + abs(startfinal[5]));
-  float d = distance[0] + distance[1] + distance[2] ;
+  distance[3] = abs(+ abs(startfinal[4]) - abs(startfinal[1] +hOff+ altezzaP + YBASE));
   
-  if(i*d <= distance[1]) aus = 1;
-  else if(i*d <= distance[0] + (distance[1]) && i*d > distance[1]) aus = 2;
-  else if(i*d <= d && i*d > ( distance[0]) + distance[1]) aus = 3;
+  if( ausiliarInitialTrajector == 0) d = distance[1];
+  else if( ausiliarInitialTrajector == 1) d = distance[2];
+  else if( ausiliarInitialTrajector == 2) d = distance[0];
+  else d = distance[3];
+  
   
   direction[0] = signum(startfinal[3] - startfinal[0]);
   direction[1] = signum(startfinal[4] - startfinal[1]);
   direction[2] = signum(startfinal[5] - startfinal[2]);
   
-  if(aus == 1) {
+  if(ausiliarInitialTrajector == 0){
     posizione[0] = startfinal[0]; //x
     posizione[2] = startfinal[2];  //z
-    posizione[1] = startfinal[1] + direction[1]*i*d; // y
-  } 
-  if(aus == 2) {
-    posizione[0] = startfinal[0]+ direction[0]*(i*d - distance[1]);//x
-    posizione[2] = startfinal[2];  //z
-    posizione[1] = startfinal[4]; // y
-  } 
-  if(aus == 3 ){
+    posizione[1] = startfinal[1] + 1*i*d; // y
+  }
+  if(ausiliarInitialTrajector == 1){
+    posizione[0] = startfinal[0]; //x
+    posizione[2] = startfinal[2] + direction[2]*i*d;  //z
+    posizione[1] = startfinal[1] +hOff+ altezzaP + YBASE; // y
+  }
+    if(ausiliarInitialTrajector == 2){
+    posizione[0] = startfinal[0] + direction[0]*i*d; //x
+    posizione[2] = startfinal[5];  //z
+    posizione[1] = startfinal[1] +hOff+ altezzaP + YBASE; // y
+  }
+    if(ausiliarInitialTrajector == 3){
     posizione[0] = startfinal[3]; //x
-    posizione[2] = startfinal[5] + direction[2]*(i*d - d);  //z
-    posizione[1] = startfinal[4]; // y
-  } 
-  
-  
+    posizione[2] = startfinal[5];  //z
+    posizione[1] = startfinal[1] +hOff + altezzaP + YBASE +direction[1]*i*d; // y
+  }
+
   return(posizione);
 }
