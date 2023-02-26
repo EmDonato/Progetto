@@ -347,7 +347,7 @@ void draw(){
           }
   } 
 
-    else if(presa == 4 ){
+    else if(presa == 5 ){
       
       
           posif[0] = posi[3]; posif[1] = posi[4]; posif[2] = posi[5];
@@ -357,7 +357,7 @@ void draw(){
          phi = atan2( CurrentPosition[2],-CurrentPosition[0]);
          CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
          if(show==1){
-           drawTraiettoriaIniziale(posif);
+           drawTraiettoriaFinale(posif);
            drawCurrentPosition( CurrentPosition); 
            }
           t = t+ 0.01;
@@ -367,14 +367,17 @@ void draw(){
             ausiliarFinalTrajector ++;
             if(ausiliarFinalTrajector == 3) 
             {
-              presa = 5;
+              presa = 42;
             }
             
           } 
   
   }
-     else if(presa == 5 ){}
-  
+     else if(presa == 4 ){
+               q5r = q5r + 0.05*(0-q5r);
+          if(abs(q5 - 0)<0.01)
+          presa = 5;}
+      else if(presa == 42 ){}
 }
 
 

@@ -51,19 +51,20 @@ void drawTraiettoria(float[] d, float[] positions){
 }
 
 
-//void drawTraiettoriaIniziale(float[] positions){
+void drawTraiettoriaFinale(float[] positions){
 
-//  drawPositions(positions);
-//  push();
-//  strokeWeight(3);
-//  fill(255,0,0);
-//  stroke(255,0,0);
-//  line(positions[0],positions[1],positions[2],positions[0],positions[4],positions[2]);
-//  line(positions[0],positions[4],positions[2],positions[3],positions[4],positions[2]);
-//  line(positions[3],positions[4],positions[2],positions[3],positions[4],positions[5]);
-//  pop();
+  drawPositions(positions);
+  push();
+  strokeWeight(3);
+  fill(255,0,0);
+  stroke(255,0,0);
+  line(positions[0],positions[1],positions[2],positions[0],positions[4],positions[2]);
+  line(positions[0],positions[4],positions[2],positions[3],positions[4],positions[2]);
+  line(positions[3],positions[4],positions[2],positions[3],positions[4],positions[5]);
 
-//}
+  pop();
+
+}
 
 void drawTraiettoriaIniziale(float[] positions){
 
