@@ -163,3 +163,45 @@ float[] traiettoriaIniziale(float i, float[] startfinal, int ausiliarInitialTraj
 
   return(posizione);
 }
+
+
+float[] traiettoriaFinale(float i, float[] startfinal, int ausiliarFinalTrajector){
+  
+  float[] posizione = { 0, 0, 0 }; // x, y, z
+  float[] distance = { 0, 0, 0, 0};  // x, y1, z, y2
+  int[] direction = { 0, 0, 0 }; // x, y, z
+  
+  float d;
+  
+  distance[0] = abs(- abs(startfinal[0]) + abs(startfinal[3]));
+  distance[1] = abs(- abs(startfinal[1]) + abs(startfinal[4]));
+  distance[2] = abs(- abs(startfinal[2]) + abs(startfinal[5]));
+ 
+  
+  if( ausiliarFinalTrajector == 0) d = distance[1];
+  else if( ausiliarFinalTrajector == 2) d = distance[2];
+  else  d = distance[0];
+  
+  
+  direction[0] = signum(startfinal[3] - startfinal[0]);
+  direction[1] = signum(startfinal[4] - startfinal[1]);
+  direction[2] = signum(startfinal[5] - startfinal[2]);
+  
+  if(ausiliarFinalTrajector == 0){
+    posizione[0] = startfinal[0]; //x
+    posizione[2] = startfinal[2];  //z
+    posizione[1] = startfinal[1] + direction[0]*i*d; // y
+  }
+  if(ausiliarFinalTrajector == 2){
+    posizione[0] = startfinal[3]; //x
+    posizione[2] = startfinal[2] + direction[2]*i*d;  //z
+    posizione[1] = startfinal[4]; // y
+  }
+    if(ausiliarFinalTrajector == 1){
+    posizione[0] = startfinal[0] + direction[0]*i*d; //x
+    posizione[2] = startfinal[2];  //z
+    posizione[1] = startfinal[4]; // y
+  }
+
+  return(posizione);
+}

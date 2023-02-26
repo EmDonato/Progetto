@@ -129,7 +129,7 @@ int presa = -1;
 float[] posic = {0,0,0,0,0,0};
 
 float t = 0.0; //tempo corrente
-float tf = 2; // tempo finale
+float tf = 1; // tempo finale
 float phi;
 int finalcut = 0;
 
@@ -167,7 +167,7 @@ float incP=10.0;
 
 
 int ausiliarInitialTrajector = 0;
-
+int ausiliarFinalTrajector = 0;
 
 
 void setup(){
@@ -244,7 +244,7 @@ void draw(){
   pop();
   pop();
   
-  if(presa == -1 && finalcut == 0){
+  if(presa == -1){
       M = Moves.get(j);
       posi = startAndFinal(M); 
       // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
@@ -254,13 +254,11 @@ void draw(){
       CurrentPosition = traiettoriaIniziale(i, posi0, ausiliarInitialTrajector);
       phi = atan2( CurrentPosition[2],-CurrentPosition[0]);
       CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
-      delay(2);
       if(show==1){
         drawTraiettoriaIniziale(posi0);
         drawCurrentPosition( CurrentPosition); 
       }
       t = t+ 0.01;
-      delay(4);
       if(i >= 0.999){
         i = 0.0;
         t = 0.0;
@@ -273,14 +271,14 @@ void draw(){
       } 
   }
   
-  else if(presa == 2  && finalcut == 0){
+  else if(presa == 2  ){
   
           q5r = q5r + 0.05*(HALF_PI-q5r);
           if(abs(q5 - HALF_PI)<0.01)
           presa = 1;
   
   }
-  else if(presa == 3  && finalcut == 0){
+  else if(presa == 3 ){
   
           q5r = q5r + 0.05*(0-q5r);
           if(abs(q5 - 0)<0.01)
@@ -289,7 +287,7 @@ void draw(){
   }
     
   
-  else if(presa == 1  && finalcut == 0){
+  else if(presa == 1 ){
       M = Moves.get(j);
       posi = startAndFinal(M); 
       // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
@@ -301,30 +299,31 @@ void draw(){
       CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,HALF_PI);
           //  print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
 
-      delay(2);
       if(show==1){
        
         drawTraiettoria(distt, posi);
         drawCurrentPosition( CurrentPosition);
         
       }
-      delay(2);
       moveDisk(CurrentPosition,M);
         t = t+ 0.01;
-      delay(2);
       if(i >= 0.99){
         i = 0.0;
         t = 0.0;
          j++;
          presa = 3;
+         
         if(j == 7){
+          print("ciao");
           j = 0;
-          //posif[0] = posic[3]; posif[1] = posic[4]; posif[2] = posic[5]; 
-          finalcut = 1;
+          
+          posif[0] = posic[3]; posif[1] = posic[4]; posif[2] = posic[5]; 
+           presa = 4;
+          
         } }
         
   }
-  else if(presa == 0  && finalcut == 0){
+  else if(presa == 0  ){
           
           M = Moves.get(j);
           posi = startAndFinal(M);
@@ -334,7 +333,6 @@ void draw(){
           CurrentPosition = traiettoria(i, distt, posic);
           phi = atan2( CurrentPosition[0],CurrentPosition[2]);
           CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
-          delay(2);
           if(show==1){
            
             drawTraiettoria(distt, posic);
@@ -342,74 +340,40 @@ void draw(){
             
           }   
           t = t+ 0.01;
-          delay(4);
           if(i >= 0.999){
             i = 0.0;
             t = 0.0;
             presa = 2;
           }
-   
-   if(finalcut == 1){
-                   
-                  print("\n\n\n\n\n\n","ENDENDENDEDNEDNEDNEDNEDNEDENDENDENDEDN","\n\n\n\n\n\n");
+  } 
 
-          //posif[0] = posi[3]; posif[1] = posi[4]; posif[2] = posi[5]; 
-          //print("\n\n\n\n\n\n",posif[0],posif[1],posif[2],posif[3],posif[4],posif[5],"\n\n\n\n\n\n");
-
-          //distt = distance(posif);
-          //i = minima_energia(t,tf);
-          //CurrentPosition = traiettoriaIniziale(i, posif, ausiliarInitialTrajector);
-          //phi = atan2( CurrentPosition[2],-CurrentPosition[0]);
-          //CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
-          //delay(2);
-          //if(show==1){
-          //  drawTraiettoriaIniziale(posif);
-          //  drawCurrentPosition( CurrentPosition); 
-          //}
-          //t = t+ 0.01;
-          //delay(4);
-          //if(i >= 0.999){
-          //  i = 0.0;
-          //  t = 0.0;
-          //  ausiliarInitialTrajector ++;
-          //  if(ausiliarInitialTrajector == 4) 
-          //  {
-          //    presa = 2;
-          //  }
+    else if(presa == 4 ){
+      
+      
+          posif[0] = posi[3]; posif[1] = posi[4]; posif[2] = posi[5];
+         print("\n\n\n\n\n\n",posif[0],posif[1],posif[2],posif[3],posif[4],posif[5],"\n\n\n\n\n\n");
+         i = minima_energia(t,tf);
+         CurrentPosition = traiettoriaFinale(i, posif, ausiliarFinalTrajector);
+         phi = atan2( CurrentPosition[2],-CurrentPosition[0]);
+         CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
+         if(show==1){
+           drawTraiettoriaIniziale(posif);
+           drawCurrentPosition( CurrentPosition); 
+           }
+          t = t+ 0.01;
+          if(i >= 0.999){
+            i = 0.0;
+            t = 0.0;
+            ausiliarFinalTrajector ++;
+            if(ausiliarFinalTrajector == 3) 
+            {
+              presa = 5;
+            }
             
-   //       }      
-   } 
-}
+          } 
   
-  
-  
-  //M = Moves.get(j);
-  //posi = startAndFinal(M); 
-  // // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
-  //distt = distance(posi);
-  // // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
-  //drawTraiettoria(distt, posi);
-  //CurrentPosition = traiettoria(i, distt, posi);
-  //delay(2);
-  //drawCurrentPosition( CurrentPosition);
-  //delay(2);
-  //moveDisk(CurrentPosition,M);
-    //CurrentPosition[0] = 0;
-    //CurrentPosition[1] = 0;
-    //CurrentPosition[2] = 0;
-
-  //i = i+ 0.01;
-  //delay(2);
-  //if(i >= 1){
-  //  i = 0.0;
-  //   j++;
-  //  if(j == 7){
-  //    j = 0;
-  //  }
-   
-  //}
-
-  //print("\n\n",TRExx,TREyy,TREzz);
+  }
+     else if(presa == 5 ){}
   
 }
 
