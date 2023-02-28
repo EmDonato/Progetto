@@ -15,17 +15,17 @@ float altezzaP=70.0;
 //Coordinate Palo A (Default: quello a sinistra)
 float posPaloAx= 0.0;
 float posPaloAy= 0.0;
-float posPaloAz= 0.0;
+float posPaloAz= -1000.0;
 
 //Coordinate Palo B (Default: quello al centro)
 float posPaloBx= 0.0;
 float posPaloBy= 0.0;
-float posPaloBz= 0.0;
+float posPaloBz= -1000.0;
 
 //Coordinate Palo C (Default: quello a destra)
 float posPaloCx= 0.0;
 float posPaloCy= 0.0;
-float posPaloCz= 0.0;
+float posPaloCz= -1000.0;
 
 //Larghezza, altezza e profondità della Base
 float XBASE=300.0;
@@ -229,7 +229,24 @@ void draw(){
    LvAz=posPaloAz + zBaseTrasl;
    LvBz=posPaloBz + zBaseTrasl;
    LvCz=posPaloCz + zBaseTrasl;
-   
+    posiX = mouseX-650;
+  posiZ = mouseY - 750/2;
+  
+  if( choosePalo == 0){
+    posPaloAx = posiX;
+    posPaloAz = posiZ;
+  }
+  else if(choosePalo == 1){
+      posPaloBx = posiX;
+      posPaloBz = posiZ;
+       
+
+  }
+  else if(choosePalo == 2){
+      posPaloCx = posiX;
+      posPaloCz = posiZ;
+
+  }
    
    print("\n",posiX,"\n");
    
