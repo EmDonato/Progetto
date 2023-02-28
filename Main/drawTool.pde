@@ -1,4 +1,4 @@
-
+int choosePalodraw = 0;
 
 
 void drawTraiettoria(float[] d, float[] positions){

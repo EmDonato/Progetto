@@ -247,8 +247,7 @@ void draw(){
       posPaloCx = posiX;
       posPaloCz = posiZ;
 
-  }
-   
+  } 
    
  }
  else if(chooseTower == 1) cam.setActive(true);
@@ -307,7 +306,36 @@ void draw(){
   
     if(choose == 1){ chooseLO = 0; presa = -1; }
     if(choose == 2){ chooseLO = 1; presa = -1;}
+    
+    if( choosePalodraw == 1){
   
+    push();
+      fill(#FF0303,125);
+      translate(posPaloAx, -YBASE/2, posPaloAz);
+      rotateX(-HALF_PI);
+      circle(0,0, 2*(RestDiscUNO + RestDiscDUE));
+    pop();  
+    }
+    
+    
+    if( choosePalodraw == 2){
+  
+    push();
+      fill(#FF0303,125);
+      translate(posPaloAx, -YBASE/2, posPaloAz);
+      rotateX(-HALF_PI);
+      circle(0,0, 2*(RestDiscUNO + RestDiscDUE));
+    pop();  
+  
+    push();
+      fill(#3C03FF,125);
+      translate(posPaloBx, -YBASE/2, posPaloBz);
+      rotateX(-HALF_PI);
+      circle(0,0, 2*(RestDiscUNO + RestDiscDUE));
+    pop();    
+  
+  
+  }
   
   
   }
@@ -530,8 +558,10 @@ void mousePressed(){
     posPaloAx = posiX;
     posPaloAz = posiZ;
     choosePalo ++;
+    choosePalodraw++;
   }
   else if(choosePalo == 1){
+    
     
     float ausZ = 0.0;
     int sign1z = signum(posPaloAz);
@@ -552,6 +582,7 @@ void mousePressed(){
       posPaloBx = posiX;
       posPaloBz = posiZ;
       choosePalo ++;
+      choosePalodraw++;
     }
   }
   else if(choosePalo == 2){
@@ -588,6 +619,7 @@ void mousePressed(){
       posPaloCx = posiX;
       posPaloCz = posiZ;
       choosePalo ++;
+      choosePalodraw = 0;
     }    
     
   }
