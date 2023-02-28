@@ -30,13 +30,13 @@ float posPaloCz= -1000.0;
 //Larghezza, altezza e profondità della Base
 float XBASE=300.0;
 float YBASE=20.0;
-float ZBASE=100.0;
+float ZBASE=150.0;
 
 
 //Posizione traslazione base
 float xBaseTrasl = 0.0;
 float yBaseTrasl = 0;
-float zBaseTrasl = -400.0;
+float zBaseTrasl = -350.0;
 
 
 TorreDiHanoi Torre= new TorreDiHanoi(XBASE,YBASE,ZBASE);
@@ -229,16 +229,17 @@ void draw(){
    LvAz=posPaloAz + zBaseTrasl;
    LvBz=posPaloBz + zBaseTrasl;
    LvCz=posPaloCz + zBaseTrasl;
-    posiX = mouseX-650;
-  posiZ = mouseY - 750/2;
+   posiX = mouseX-650;
+   posiZ = mouseY - 750/2;
   
   if( choosePalo == 0){
     posPaloAx = posiX;
     posPaloAz = posiZ;
   }
   else if(choosePalo == 1){
-      posPaloBx = posiX;
-      posPaloBz = posiZ;
+  
+    posPaloBx = posiX;
+    posPaloBz = posiZ;
        
 
   }
@@ -248,7 +249,6 @@ void draw(){
 
   }
    
-   print("\n",posiX,"\n");
    
  }
  else if(chooseTower == 1) cam.setActive(true);
@@ -532,15 +532,63 @@ void mousePressed(){
     choosePalo ++;
   }
   else if(choosePalo == 1){
+    
+    float ausZ = 0.0;
+    int sign1z = signum(posPaloAz);
+    int sign2z = signum(posiZ);
+    float ausX = 0.0;    
+    int sign1x = signum(posPaloAx);
+    int sign2x = signum(posiX);
+    
+    
+    if(sign1z == sign2z) ausZ = abs(abs(posPaloAz) - abs(posiZ));
+    else ausZ = abs(posPaloAz) + abs(posiZ);
+
+    if(sign1x == sign2x) ausX = abs(abs(posPaloAx) - abs(posiX));
+    else ausX = abs(posPaloAx) + abs(posiX);   
+    
+    
+    if( ausZ  >= RestDiscUNO + RestDiscDUE  || ausX >= RestDiscUNO + RestDiscDUE ) {
       posPaloBx = posiX;
       posPaloBz = posiZ;
       choosePalo ++;
-
+    }
   }
   else if(choosePalo == 2){
+
+    float ausZA = 0.0;
+    int sign1zA = signum(posPaloAz);
+    int sign2zA = signum(posiZ);
+    float ausXA = 0.0;    
+    int sign1xA = signum(posPaloAx);
+    int sign2xA = signum(posiX);
+    
+    float ausZB = 0.0;
+    int sign1zB = signum(posPaloBz);
+    int sign2zB = signum(posiZ);
+    float ausXB = 0.0;    
+    int sign1xB = signum(posPaloBx);
+    int sign2xB = signum(posiX);
+    
+    
+    if(sign1zA == sign2zA) ausZA = abs(abs(posPaloAz) - abs(posiZ));
+    else ausZA = abs(posPaloAz) + abs(posiZ);
+
+    if(sign1xA == sign2xA) ausXA = abs(abs(posPaloAx) - abs(posiX));
+    else ausXA = abs(posPaloAx) + abs(posiX);   
+    
+    if(sign1zB == sign2zB) ausZB = abs(abs(posPaloBz) - abs(posiZ));
+    else ausZB = abs(posPaloBz) + abs(posiZ);
+
+    if(sign1xB == sign2xB) ausXB = abs(abs(posPaloBx) - abs(posiX));
+    else ausXB = abs(posPaloBx) + abs(posiX);  
+    
+    
+    if( ausZA  >= RestDiscUNO + RestDiscDUE  || ausXA >= RestDiscUNO + RestDiscDUE && ausZB  >= RestDiscUNO + RestDiscDUE  || ausXB >= RestDiscUNO + RestDiscDUE ) {
       posPaloCx = posiX;
       posPaloCz = posiZ;
       choosePalo ++;
-
+    }    
+    
   }
 } 
