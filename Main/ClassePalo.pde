@@ -15,6 +15,7 @@ class palo {
     push();
     translate(x,y,z);
     rotateX(PI/2);
+    fill(#FAC000);
     cilindro(r,h);
     pop();
   }

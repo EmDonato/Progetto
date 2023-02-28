@@ -28,9 +28,11 @@ float ditapinzX=20.0;
 float ditapinzY=10.0;
 float ditapinzZ=10.0;
 float offsetq3 = -15 ;
+float offxlink3 = -10;
 
-float[] posi0 = { 0,-HBaseBot-H_L1-2*offsetq3,-L4-D1-D2,0,0,0}; // posizione iniziale
-float[] posif = { 0, 0, 0,0,-HBaseBot-H_L1-2*offsetq3,-L4-D1-D2}; // posizione finale
+float[] posi0 = { 0,-HBaseBot-H_L1-2*offsetq3,-L4-D1-D2-offxlink3,0,0,0}; // posizione iniziale
+float[] posif = { 0, 0, 0,0,-HBaseBot-H_L1-2*offsetq3,-L4-D1-D2-offxlink3}; // posizione finale
+
 
 class Robot {
   float x;
@@ -93,7 +95,7 @@ void link2R(float theta2){
 }
 void link3P(float d3){
   translate(Llink2,0,0);//L2
-  translate(0,d3,0);
+  translate(offxlink3,d3,0);
   push();
   rotateX(PI);
   shape(Link3);
@@ -118,7 +120,7 @@ void polso(float theta4, float theta5){ //, float theta5
   translate(0,50,0);
   shape(Link5);
   rotateX(PI);
-  translate(0,0,25);
+  translate(2,0,23);
   rotateZ(theta5);
   shape(Link6);
   pop();
@@ -147,13 +149,13 @@ void assi(){
 }
 
 void CinematicaInversa(float xf,float yf, float zf, float phi, float rho){
-  float znew = zf+L4;
-  q3r= -yf + Llink1 +rpolso + offsetq3; //-HBaseBot
+  float znew = zf+L4 + offxlink3;
+  q3r= -yf + Llink1 +rpolso + offsetq3 ; //-HBaseBot
   float C2=((znew*znew)+(xf*xf)-((D2+0)*(D2+0))-(D1*D1))/(2*(D2+0)*D1);
   float S2=gomito*sqrt(1-(C2*C2));
   q2r=atan2(S2,C2);
-  float C1=znew*(C2*(D2+0)+D1)+xf*(S2*(D2+0));
-  float S1=-znew*(S2*(D2+0))+xf*(C2*(D2+0)+D1);
+  float C1=znew*(C2*(D2+offxlink3)+D1)+xf*(S2*(D2+offxlink3));
+  float S1=-znew*(S2*(D2+offxlink3))+xf*(C2*(D2+offxlink3)+D1);
   q1r=atan2(S1,C1) + PI;
   q4r=(phi-q2r-q1r);
   q5r = rho;

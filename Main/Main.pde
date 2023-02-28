@@ -1,20 +1,19 @@
-
+import peasy.*;
 
 
 ArrayList<Move> Moves = new ArrayList<Move>();
 Move M;
- 
-import peasy.*;
+
 PeasyCam cam;
 
-
+int choosePalo = 0;
 
 // Raggio e altezza dei pali A,B e C
 float raggioP=15.0;
 float altezzaP=70.0;
 
 //Coordinate Palo A (Default: quello a sinistra)
-float posPaloAx=-100.0;
+float posPaloAx= 0.0;
 float posPaloAy= 0.0;
 float posPaloAz= 0.0;
 
@@ -24,7 +23,7 @@ float posPaloBy= 0.0;
 float posPaloBz= 0.0;
 
 //Coordinate Palo C (Default: quello a destra)
-float posPaloCx= 100.0;
+float posPaloCx= 0.0;
 float posPaloCy= 0.0;
 float posPaloCz= 0.0;
 
@@ -47,7 +46,7 @@ float HeightDisc=20.0;
 float RintDisc=15.0;
 
 //Parametri linguetta (Il primo è quello che definisce quanto si sporge la linguetta dal disco)
-float Linguetta=60.0;
+float Linguetta=10.0;
 float hLing=2.0;
 float LargLing=10.0;
 
@@ -63,7 +62,7 @@ float RestDiscUNO=40.0; //Raggio esterno
   //Coordinate iniziali punto presa della linguetta
   float PosLingUNOx=-100.0;;
   float PosLingUNOy=-YBASE/2-HeightDisc/2;
-  float PosLingUNOz=(RestDiscUNO/2)+Linguetta;
+  float PosLingUNOz=(RestDiscUNO)+Linguetta;
 
 //Disco DUE (medio)
 float RestDiscDUE=30.0; //Raggio esterno
@@ -77,7 +76,7 @@ float RestDiscDUE=30.0; //Raggio esterno
   //Coordinate iniziali punto presa della linguetta
   float PosLingDUEx=-100.0;
   float PosLingDUEy=-YBASE/2-(3*HeightDisc)/2;
-  float PosLingDUEz=(RestDiscDUE/2)+Linguetta;
+  float PosLingDUEz=(RestDiscDUE)+Linguetta;
   
 //Disco TRE (piccolo) 
 float RestDiscTRE=20.0; //Raggio esterno
@@ -91,7 +90,7 @@ float RestDiscTRE=20.0; //Raggio esterno
   //Coordinate iniziali punto presa della linguetta
   float PosLingTREx=-100.0;;
   float PosLingTREy=-YBASE/2-(5*HeightDisc)/2;
-  float PosLingTREz=(RestDiscTRE/2)+Linguetta;
+  float PosLingTREz=(RestDiscTRE)+Linguetta;
   
 //Coordinate Livello Palo A (Ordinate dal più basso al più alto)
 Float LvAx=posPaloAx + xBaseTrasl;   Float Lv1Ay=-YBASE/2-HeightDisc/2 + yBaseTrasl;       Float LvAz=posPaloAz + zBaseTrasl;
@@ -124,15 +123,16 @@ int j = 0;
 int show = 0;
 
 
-int presa = -1;
+int presa = -2;
 
 float[] posic = {0,0,0,0,0,0};
 
 float t = 0.0; //tempo corrente
-float tf = 1; // tempo finale
+float tf = 3; // tempo finale
 float phi;
-int finalcut = 0;
 
+
+int choose = 0; // scelta inziale tra le due leggi orarie
 
 // robot
 
@@ -168,51 +168,92 @@ float incP=10.0;
 
 int ausiliarInitialTrajector = 0;
 int ausiliarFinalTrajector = 0;
+int chooseTower = 0;
+int disabilita_cam = 0;
+
+
+float posiX = 0.0;
+float posiZ = 0.0;
 
 
 void setup(){
   size(1300,750,P3D);
   cam = new PeasyCam(this, 500);
   background(#979CF5);
+  //pointLight(51, 102, 126, 140, 160, 144);
   directionalLight(126,126,126,0,0,0.7);
   smooth(8);
   HanoiSolution(3);
-   UNOxx = -100.0;
+   UNOxx = posPaloAx;
    UNOyy = -YBASE/2-HeightDisc/2;
-   UNOzz = zBaseTrasl;
+   UNOzz = posPaloAz;
   
-   DUExx=-100.0;
+   DUExx= posPaloAx;
    DUEyy=-YBASE/2-(3*HeightDisc)/2;
-   DUEzz= zBaseTrasl;
+   DUEzz= posPaloAz;
   
-   TRExx=-100.0;
+   TRExx= posPaloAx;
    TREyy=-YBASE/2-(5*HeightDisc)/2;
-   TREzz= zBaseTrasl ;
-    Link6=loadShape("hand.obj");
-    base =loadShape("base1.obj");
-    Link1=loadShape("link1_1.obj");
-    Link2=loadShape("link2_1.obj");
-    Link3=loadShape("link3_1.obj");
-    Link4=loadShape("link4.obj");
-    Link5=loadShape("link5.obj");
+   TREzz= posPaloAz;
+  Link6=loadShape("hand.obj");
+  base =loadShape("base1.obj");
+  Link1=loadShape("link1_1.obj");
+  Link2=loadShape("link2_1.obj");
+  Link3=loadShape("link3_1.obj");
+  Link4=loadShape("link4.obj");
+  Link5=loadShape("link5.obj");
     
 
 }
 
 void draw(){
+ if(chooseTower == 0) {
+   cam.setActive(false);
+   rotateX(-HALF_PI);
+      UNOxx = posPaloAx;
+   UNOyy = -YBASE/2-HeightDisc/2;
+   UNOzz = posPaloAz + zBaseTrasl;
+  
+   DUExx= posPaloAx;
+   DUEyy=-YBASE/2-(3*HeightDisc)/2;
+   DUEzz= posPaloAz + zBaseTrasl;
+  
+   TRExx= posPaloAx;
+   TREyy=-YBASE/2-(5*HeightDisc)/2;
+   TREzz= posPaloAz + zBaseTrasl;
+   
+   LvAx=posPaloAx + xBaseTrasl;
+   LvBx=posPaloBx + xBaseTrasl;
+   LvCx=posPaloCx + xBaseTrasl;
+   
+   LvAz=posPaloAz + zBaseTrasl;
+   LvBz=posPaloBz + zBaseTrasl;
+   LvCz=posPaloCz + zBaseTrasl;
+   
+   
+   print("\n",posiX,"\n");
+   
+ }
+ else if(chooseTower == 1) cam.setActive(true);
   background(#979CF5);
-  fill(#C99951);
+  directionalLight(255,255,255,0.5,0.5,0.3);
+  fill(#93500D);
+  noStroke();
   push();
-  UNO.DrawDisco(UNOxx,UNOyy,UNOzz);
+  fill(#FF0303);
+  if(chooseTower == 1) UNO.DrawDisco(UNOxx,UNOyy,UNOzz);
   pop();
   push();
-  DUE.DrawDisco(DUExx,DUEyy,DUEzz);
+  fill(#03FF1D);
+  if(chooseTower == 1) DUE.DrawDisco(DUExx,DUEyy,DUEzz);
   pop();
   push();
-  TRE.DrawDisco(TRExx,TREyy,TREzz);
+  fill(#1203FF);
+  if(chooseTower == 1) TRE.DrawDisco(TRExx,TREyy,TREzz);
   pop();
   push();
-  Torre.DrawTh(xBaseTrasl,yBaseTrasl,zBaseTrasl);
+  if(chooseTower == 1) Torre.DrawTh(xBaseTrasl,yBaseTrasl,zBaseTrasl);
+  else if(chooseTower == 0) Torre.DrawTh(0,0,0);
   pop();
   // variabili di giunto 
   q1=q1r;
@@ -223,7 +264,8 @@ void draw(){
   push();
   rotateY(PI/2);
   Robot SCARA = new Robot(q1,q2,q3,q4,q5);
-  SCARA.DrawRobot(0,0,0);
+  if(chooseTower == 1) SCARA.DrawRobot(0,0,0);
+
   pop();
   push();
   strokeWeight(3);
@@ -244,13 +286,28 @@ void draw(){
   pop();
   pop();
   
+  if(presa == -2){
+  
+    if(choose == 1){ chooseLO = 0; presa = -1; }
+    if(choose == 2){ chooseLO = 1; presa = -1;}
+  
+  
+  
+  }
+  
+  
+  
+  
+  
   if(presa == -1){
       M = Moves.get(j);
       posi = startAndFinal(M); 
       // print("\n\n\n\n\n\n",posi[0],posi[1],posi[2],posi[3],posi[4],posi[5],"\n\n\n\n\n\n");
       posi0[3] = posi[0]; posi0[4] = posi[1]; posi0[5] = posi[2];   
-       // print(distt[0],distt[1],distt[2],distt[3],distt[4]);   
-      i = minima_energia(t,tf);
+       // print(distt[0],distt[1],distt[2],distt[3],distt[4]); 
+      if (chooseLO == 0)      i = minima_energia(t,tf);
+      else                    i = tempo_minimo(t);
+
       CurrentPosition = traiettoriaIniziale(i, posi0, ausiliarInitialTrajector);
       phi = atan2( CurrentPosition[2],-CurrentPosition[0]);
       CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
@@ -259,9 +316,14 @@ void draw(){
         drawCurrentPosition( CurrentPosition); 
       }
       t = t+ 0.01;
-      if(i >= 0.999){
+      if(i >= 1){
         i = 0.0;
         t = 0.0;
+        
+        speedP = 0.0;
+        speedN = 0.0;
+        l0=0;
+        
         ausiliarInitialTrajector ++;
         if(ausiliarInitialTrajector == 4) 
         {
@@ -294,7 +356,9 @@ void draw(){
       posic[0] = posi[3]; posic[1] = posi[4]; posic[2] = posi[5]; 
       distt = distance(posi);
        // print(distt[0],distt[1],distt[2],distt[3],distt[4]);
-      i = minima_energia(t,tf);
+      if (chooseLO == 0)      i = minima_energia(t,tf);
+      else                    i = tempo_minimo(t);
+      
       CurrentPosition = traiettoria(i, distt, posi);
       CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,HALF_PI);
           //  print("\n\n\n\n\n\n\n\n\n\n",CurrentPosition[0], CurrentPosition[1],CurrentPosition[2],"\n\n\n\n\n\n\n\n\n\n");
@@ -307,9 +371,13 @@ void draw(){
       }
       moveDisk(CurrentPosition,M);
         t = t+ 0.01;
-      if(i >= 0.99){
+      if(i >= 1){
         i = 0.0;
         t = 0.0;
+        
+        speedP = 0.0;
+        speedN = 0.0;
+        l0=0;        
          j++;
          presa = 3;
          
@@ -329,7 +397,10 @@ void draw(){
           posi = startAndFinal(M);
           posic[3] = posi[0]; posic[4] = posi[1]; posic[5] = posi[2]; 
           distt = distance(posic);
-          i = minima_energia(t,tf);
+
+          if (chooseLO == 0)      i = minima_energia(t,tf);
+          else                    i = tempo_minimo(t);
+         
           CurrentPosition = traiettoria(i, distt, posic);
           phi = atan2( CurrentPosition[0],CurrentPosition[2]);
           CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
@@ -340,9 +411,13 @@ void draw(){
             
           }   
           t = t+ 0.01;
-          if(i >= 0.999){
+          if(i >= 1){
             i = 0.0;
             t = 0.0;
+          speedP = 0.0;
+          speedN = 0.0;
+          l0=0;            
+            
             presa = 2;
           }
   } 
@@ -351,8 +426,10 @@ void draw(){
       
       
           posif[0] = posi[3]; posif[1] = posi[4]; posif[2] = posi[5];
-         print("\n\n\n\n\n\n",posif[0],posif[1],posif[2],posif[3],posif[4],posif[5],"\n\n\n\n\n\n");
-         i = minima_energia(t,tf);
+
+          if (chooseLO == 0)      i = minima_energia(t,tf);
+          else                    i = tempo_minimo(t);
+
          CurrentPosition = traiettoriaFinale(i, posif, ausiliarFinalTrajector);
          phi = atan2( CurrentPosition[2],-CurrentPosition[0]);
          CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
@@ -364,6 +441,11 @@ void draw(){
           if(i >= 0.999){
             i = 0.0;
             t = 0.0;
+            
+            speedP = 0.0;
+            speedN = 0.0;
+            l0=0;            
+            
             ausiliarFinalTrajector ++;
             if(ausiliarFinalTrajector == 3) 
             {
@@ -389,4 +471,48 @@ void keyPressed(){
     show = show % 2;
     
   }
+  
+    if (key  == 'e'){
+      choose = 1;
+    
+  }
+    if (key  == 't'){
+    
+      choose = 2;
+    
+  }
+  
+  
+  if (key  == 'c'){
+    chooseTower++;
+    chooseTower = chooseTower % 2;
+    //cam.setActive(true);
+    
+  }
+ 
+  
 }
+
+void mousePressed(){
+  
+  posiX = mouseX-650;
+  posiZ = mouseY - 750/2;
+  
+  if( choosePalo == 0){
+    posPaloAx = posiX;
+    posPaloAz = posiZ;
+    choosePalo ++;
+  }
+  else if(choosePalo == 1){
+      posPaloBx = posiX;
+      posPaloBz = posiZ;
+      choosePalo ++;
+
+  }
+  else if(choosePalo == 2){
+      posPaloCx = posiX;
+      posPaloCz = posiZ;
+      choosePalo ++;
+
+  }
+} 
