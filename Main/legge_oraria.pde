@@ -42,7 +42,8 @@ float tempo_minimo(float tc){
               
         }
           speedN =  -A_MAX * (tc - Tchange) + speed0;
-          l = -(0.5)*A_MAX * (tc - Tchange) * (tc - Tchange) + speed0 *(tc - Tchange) + l0;      
+          l = -(0.5)*A_MAX * (tc - Tchange) * (tc - Tchange) + speed0 *(tc - Tchange) + l0;    
+          if(l >= 1) l=1;
           print("\n\n\n\n\n",speedN,"\n",l,"\n\n\n\n\n");
       }
 

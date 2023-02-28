@@ -151,7 +151,7 @@ float[] traiettoriaFinale(float i, float[] startfinal, int ausiliarFinalTrajecto
   if(ausiliarFinalTrajector == 0){
     posizione[0] = startfinal[0]; //x
     posizione[2] = startfinal[2];  //z
-    posizione[1] = startfinal[1] + direction[0]*i*d; // y
+    posizione[1] = startfinal[1] + direction[1]*i*d; // y
   }
   if(ausiliarFinalTrajector == 2){
     posizione[0] = startfinal[3]; //x

@@ -351,14 +351,18 @@ void draw(){
   }
   
   else if(presa == 2  ){
-  
+          speedP = 0.0;
+          speedN = 0.0;
+          l0=0;
           q5r = q5r + 0.05*(HALF_PI-q5r);
           if(abs(q5 - HALF_PI)<0.01)
           presa = 1;
   
   }
   else if(presa == 3 ){
-  
+          speedP = 0.0;
+          speedN = 0.0;
+          l0=0;  
           q5r = q5r + 0.05*(0-q5r);
           if(abs(q5 - 0)<0.01)
           presa = 0;
@@ -473,10 +477,17 @@ void draw(){
   
   }
      else if(presa == 4 ){
+       
+          speedP = 0.0;
+          speedN = 0.0;
+          l0=0;       
                q5r = q5r + 0.05*(0-q5r);
           if(abs(q5 - 0)<0.01)
           presa = 5;}
-      else if(presa == 42 ){}
+      else if(presa == 42 ){
+          speedP = 0.0;
+          speedN = 0.0;
+          l0=0;}
 }
 
 
