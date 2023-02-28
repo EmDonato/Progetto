@@ -1,6 +1,32 @@
 import peasy.*;
 PeasyCam cam;
 
+//Rettangolo esterno
+float HrectR=300.0;
+float LrectR=500.0;
+
+//rettangolo interno
+float Hrect=220.0;
+float Lrect=420.0;
+
+float posPaloAx=0.0;
+float posPaloAz=0.0;
+float posPaloBx=0.0;
+float posPaloBz=0.0;
+float posPaloCx=0.0;
+float posPaloCz=0.0;
+
+float pAx=0.0;
+float pAz=0.0;
+
+int NClick=0;
+
+// Coordinate dell'ultimo click valido
+float lastX;
+float lastY;
+
+char scena='0';
+
 PShape base;
 PShape Link1;
 PShape Link2;
@@ -84,21 +110,19 @@ float q2=0.0;
 float q3=0.0;
 float q4=0.0;
 float q5=0.0;
+
 void setup() {
   size(1300,750,P3D);
   cam = new PeasyCam(this, 500);
   background(#979CF5);
+    if(scena=='0'){
+      fill(255,0,0,200);
+      rect(0-LrectR/2,0-HrectR/2,LrectR,HrectR);
+      fill(#C99951);
+      rect(0-Lrect/2,0-Hrect/2,Lrect,Hrect);
+  }
   directionalLight(126,126,126,0,0,0.7);
   smooth(8);
-  
-  // Leggere il contenuto del file di testo creato precedentemente
-  String[] lines = loadStrings("dati.txt");
-  float posPaloAx = float(lines[0]);
-  float posPaloAz = float(lines[1]);
-  float posPaloBx = float(lines[2]);
-  float posPaloBz = float(lines[3]);
-  float posPaloCx = float(lines[4]);
-  float posPaloCz = float(lines[5]);
   
    UNOxx = posPaloAx;
    UNOyy = -YBASE/2-HeightDisc/2;
@@ -119,37 +143,76 @@ void setup() {
     Link3=loadShape("link3_1.obj");
     Link4=loadShape("link4.obj");
     Link5=loadShape("link5.obj");
-  
+}
+
+void draw(){
+    switch(scena){
+      case '0':
+      break;
+      case '1':
+      background(#979CF5);
+      fill(#C99951);
+      push();
+      UNO.DrawDisco(UNOxx,UNOyy,UNOzz);
+      pop();
+      push();
+      DUE.DrawDisco(DUExx,DUEyy,DUEzz);
+      pop();
+      push();
+      TRE.DrawDisco(TRExx,TREyy,TREzz);
+      pop();
+      push();
+      Torre.DrawTh(xBaseTrasl,yBaseTrasl,zBaseTrasl);
+      pop();
+      Torre.DrawTh(xBaseTrasl,yBaseTrasl,zBaseTrasl);push();
+      rotateY(PI/2);
+      Robot SCARA = new Robot(q1,q2,q3,q4,q5);
+      SCARA.DrawRobot(0,0,0);
+      pop();
+      break;
+  }
+}
+
+void mouseReleased(){
+ float xx=mouseX;
+ float yy=mouseY;
+ 
+ // Calcolo la distanza tra il nuovo click e l'ultimo click valido
+ float d1 = dist(xx, yy, lastX, lastY);
+ float d2 = dist(xx, yy, pAx, pAz);
+ cam.beginHUD();
+  if(NClick<3){
+    if((xx>=(0+(1300-Lrect)/2) && xx<=(1300-(1300-Lrect)/2))&&(yy>=(0+(750-Hrect)/2) && yy<=(750-(750-Hrect)/2))){
+      if (d1 >= 80 && d2 >=80) {
+      // Aggiorno le coordinate dell'ultimo click valido
+        lastX = xx;
+        lastY = yy;
+        NClick++;
+        push();
+        fill(255,0,0,200);
+        circle(xx,yy,80);
+        fill(0,255,0);
+        circle(xx,yy,30);
+        fill(0);
+        strokeWeight(4);
+        point(xx,yy);
+        pop();
+        if(NClick==1){pAx=mouseX;pAz=mouseY;posPaloAx=mouseX-650;posPaloAz=mouseY-375;}
+        if(NClick==2){posPaloBx=mouseX-650;posPaloBz=mouseY-375;}
+        if(NClick==3){posPaloCx=mouseX-650;posPaloCz=mouseY-375;}
+      }
+    }
+  }
+  cam.endHUD();
   println(posPaloAx);
   println(posPaloAz);
   println(posPaloBx);
   println(posPaloBz);
   println(posPaloCx);
   println(posPaloCz);
-  
-  // Disegnare sulla finestra di Processing
-  background(#979CF5);
 }
 
-void draw(){
-  background(#979CF5);
-  fill(#C99951);
-  push();
-  UNO.DrawDisco(UNOxx,UNOyy,UNOzz);
-  pop();
-  push();
-  DUE.DrawDisco(DUExx,DUEyy,DUEzz);
-  pop();
-  push();
-  TRE.DrawDisco(TRExx,TREyy,TREzz);
-  pop();
-  push();
-  Torre.DrawTh(xBaseTrasl,yBaseTrasl,zBaseTrasl);
-  pop();
-  Torre.DrawTh(xBaseTrasl,yBaseTrasl,zBaseTrasl);push();
-  rotateY(PI/2);
-  Robot SCARA = new Robot(q1,q2,q3,q4,q5);
-  SCARA.DrawRobot(0,0,0);
-  pop();
-  
+void keyPressed(){
+  if(key=='a'){scena='1';}
+
 }
