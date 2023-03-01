@@ -282,24 +282,24 @@ void draw(){
   Robot SCARA = new Robot(q1,q2,q3,q4,q5);
   if(chooseTower == 1) SCARA.DrawRobot(0,0,0);
 
-  pop();
-  push();
-  strokeWeight(3);
-  push();
-  fill(255,0,0);
-  stroke(255,0,0);
-  line(0,0,0,200,0,0);
-  pop();
-  push();
-  fill(0,255,0);
-  stroke(0,255,0);
-  line(0,0,0,0,200,0);
-  pop();
-  push();
-  fill(0,0,255);
-  stroke(0,0,255);
-  line(0,0,0,0,0,200);
-  pop();
+  //pop();
+  //push();
+  //strokeWeight(3);
+  //push();
+  //fill(255,0,0);
+  //stroke(255,0,0);
+  //line(0,0,0,200,0,0);
+  //pop();
+  //push();
+  //fill(0,255,0);
+  //stroke(0,255,0);
+  //line(0,0,0,0,200,0);
+  //pop();
+  //push();
+  //fill(0,0,255);
+  //stroke(0,0,255);
+  //line(0,0,0,0,0,200);
+  //pop();
   pop();
   
   if(presa == -2){
