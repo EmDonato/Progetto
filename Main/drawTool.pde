@@ -213,7 +213,7 @@ void drawCurrentPosition(float[] p){
   push();
   fill(#EA0000);//rosso source
   translate(p[0], p[1], p[2]);
-  sphere(10);
+  sphere(3);
   pop();
 
 }

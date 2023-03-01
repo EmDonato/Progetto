@@ -29,7 +29,7 @@ float posPaloCz= -1000.0;
 
 //Larghezza, altezza e profondità della Base
 float XBASE=300.0;
-float YBASE=20.0;
+float YBASE=10.0;
 float ZBASE=150.0;
 
 
@@ -177,13 +177,14 @@ float posiZ = 0.0;
 
 
 void setup(){
-  size(1300,750,P3D);
-  cam = new PeasyCam(this, 500);
-  background(#979CF5);
+  
+   size(1300,750,P3D);
+   cam = new PeasyCam(this, 500);
+   background(#979CF5);
   //pointLight(51, 102, 126, 140, 160, 144);
-  directionalLight(126,126,126,0,0,0.7);
-  smooth(8);
-  HanoiSolution(3);
+   directionalLight(126,126,126,0,0,0.7);
+   smooth(8);
+   HanoiSolution(3);
    UNOxx = posPaloAx;
    UNOyy = -YBASE/2-HeightDisc/2;
    UNOzz = posPaloAz;
@@ -195,22 +196,23 @@ void setup(){
    TRExx= posPaloAx;
    TREyy=-YBASE/2-(5*HeightDisc)/2;
    TREzz= posPaloAz;
-  Link6=loadShape("hand.obj");
-  base =loadShape("base1.obj");
-  Link1=loadShape("link1_1.obj");
-  Link2=loadShape("link2_1.obj");
-  Link3=loadShape("link3_1.obj");
-  Link4=loadShape("link4.obj");
-  Link5=loadShape("link5.obj");
-    
+   Link6=loadShape("hand.obj");
+   base =loadShape("base1.obj");
+   Link1=loadShape("link1_1.obj");
+   Link2=loadShape("link2_1.obj");
+   Link3=loadShape("link3_1.obj");
+   Link4=loadShape("link4.obj");
+   Link5=loadShape("link5.obj");
+      
 
 }
 
 void draw(){
+  
  if(chooseTower == 0) {
    cam.setActive(false);
    rotateX(-HALF_PI);
-      UNOxx = posPaloAx;
+   UNOxx = posPaloAx;
    UNOyy = -YBASE/2-HeightDisc/2;
    UNOzz = posPaloAz + zBaseTrasl;
   
@@ -281,6 +283,43 @@ void draw(){
   rotateY(PI/2);
   Robot SCARA = new Robot(q1,q2,q3,q4,q5);
   if(chooseTower == 1) SCARA.DrawRobot(0,0,0);
+
+
+
+  if(chooseLO != 0){
+  
+    cam.beginHUD();  
+    push();
+    
+    if(speedP == 0){
+      
+      fill(#120367);
+      translate(1200,75); 
+      circle(0,0,100);
+      
+    }
+    else if(speedP != 0 && speedP < speedTheshold){
+      
+       fill(#08CB3E);
+       translate(1200,75); 
+       circle(0,0,100);  
+       
+    }
+    else if(speedP != 0 && speedP >= speedTheshold){
+      
+       fill(#EA0004);      
+       translate(1200,75); 
+       circle(0,0,100); 
+       
+    }    
+    pop();
+    cam.endHUD(); 
+  }
+
+
+
+
+
 
   //pop();
   //push();
@@ -453,6 +492,7 @@ void draw(){
           CurrentPosition = traiettoria(i, distt, posic);
           phi = atan2( CurrentPosition[0],CurrentPosition[2]);
           CinematicaInversa(CurrentPosition[0], -CurrentPosition[1],CurrentPosition[2],0,0);
+          
           if(show==1){
            
             drawTraiettoria(distt, posic);
@@ -615,7 +655,7 @@ void mousePressed(){
     else ausXB = abs(posPaloBx) + abs(posiX);  
     
     
-    if( ausZA  >= RestDiscUNO + RestDiscDUE  || ausXA >= RestDiscUNO + RestDiscDUE && ausZB  >= RestDiscUNO + RestDiscDUE  || ausXB >= RestDiscUNO + RestDiscDUE ) {
+    if( (ausZA  >= RestDiscUNO + RestDiscDUE  || ausXA >= RestDiscUNO + RestDiscDUE) && (ausZB  >= RestDiscUNO + RestDiscDUE  || ausXB >= RestDiscUNO + RestDiscDUE) ) {
       posPaloCx = posiX;
       posPaloCz = posiZ;
       choosePalo ++;

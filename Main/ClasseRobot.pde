@@ -149,9 +149,9 @@ void assi(){
 }
 
 void CinematicaInversa(float xf,float yf, float zf, float phi, float rho){
-  float znew = zf+L4 + offxlink3;
+  float znew = zf+L4 ;
   q3r= -yf + Llink1 +rpolso + offsetq3 ; //-HBaseBot
-  float C2=((znew*znew)+(xf*xf)-((D2+0)*(D2+0))-(D1*D1))/(2*(D2+0)*D1);
+  float C2=((znew*znew)+(xf*xf)-((D2+offxlink3)*(D2+offxlink3))-(D1*D1))/(2*(D2+offxlink3)*D1);
   float S2=gomito*sqrt(1-(C2*C2));
   q2r=atan2(S2,C2);
   float C1=znew*(C2*(D2+offxlink3)+D1)+xf*(S2*(D2+offxlink3));
