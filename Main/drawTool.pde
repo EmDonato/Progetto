@@ -91,48 +91,26 @@ void drawTraiettoria(float[] d, float[] positions) {
       if (abs(positions[5]) - abs(positions[2]) > 0) {
         segno1 = -1;
         segnoZ = 1;
-        print("\n\n\n\n\nciao\n\n\n\n\n\n");
       }
 
       if (abs(positions[5]) - abs(positions[2]) <=   0) {
         segno1 = 1;
         segnoZ = 1;
-        print("\n\n\n\n\nciao1\n\n\n\n\n\n");
       }
     }
     if (positions[0] <= positions[3]) {
       if (abs(positions[5]) - abs(positions[2]) > 0) {
         segno1 = -1;
         segnoZ = -1;
-        print("\n\n\n\n\nciao2\n\n\n\n\n\n");
+       
       }
 
       if (abs(positions[5]) - abs(positions[2]) <=   0) {
         segno1 = 1;
         segnoZ = -1;
-        print("\n\n\n\n\nciao3\n\n\n\n\n\n");
       }
     }
   }
-  //if(positions[0] > positions[3]){
-  //  if(abs(positions[5]) - abs(positions[2]) > 0){
-  //    segno1 = -1;
-  //  }
-
-  //}
-
-  //if(positions[0] < positions[3]){
-  //  if(abs(positions[5]) - abs(positions[2]) < 0){
-  //    segno1 = -1;
-  //  }
-  //      if(positions[2] < positions[5]){
-  //    segnoZ = -1;}
-  //      if(positions[2] >= positions[5]){
-  //    segnoZ = 1;}
-
-  //}
-
-
 
 
   drawPositions(positions);

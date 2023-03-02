@@ -7,7 +7,6 @@ float[] traiettoria(float i, float[] dist, float[] startfinal) {
   float semiC = HALF_PI * dist[4] ;
   float raggio = dist[4]/2;
   float phi = 0.0;
-  int segno_angolo = 1;
 
   float d = (dist[0])+ ( dist[1] ) + (semiC);
   int aus = 1;
@@ -15,7 +14,6 @@ float[] traiettoria(float i, float[] dist, float[] startfinal) {
   float dz = 0.0;
   float dy = 0.0;
   float alpha = 0 ;
-  int direzione = 1;
   int[] direction = { 0, 0, 0 }; // x, y, z
   if ( startfinal[0] >=0) direction[0] = -1;
   else direction[0] = 1;
@@ -49,18 +47,9 @@ float[] traiettoria(float i, float[] dist, float[] startfinal) {
   }
   if (aus == 2) {
 
-    if (phi-HALF_PI < 0) segno_angolo = 1;
-    else {
-
-      segno_angolo = -1;
-    }
-
     dx = (raggio-raggio*cos(phi))*sin(alpha); //sin(alpha)// dx = segno_angolo*sin(phi)*sin(alpha)*corda;     dz = segno_angolo*sin(phi)*cos(alpha)*corda;
-
     dz = (raggio-raggio*cos(phi))*cos(alpha);
     dy = raggio * sin(phi);
-
-
 
     posizione[0] = startfinal[0] + direction[0]*(dx); // x
     posizione[2] = startfinal[2] +  direction[2]*(dz); // z

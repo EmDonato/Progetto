@@ -16,8 +16,6 @@ float[] startAndFinal(Move M)
   float zi = 0;
   float zf = 0;
 
-
-
   if (M.disk == 3) offset = RestDiscTRE;
   if (M.disk == 2) offset = RestDiscDUE;
   if (M.disk == 1) offset = RestDiscUNO;
@@ -64,7 +62,6 @@ float[] startAndFinal(Move M)
 float[] distance(float[] p) {
 
   // funzione che misura la distanza tra punto iniziale e finale
-
   float[] dist = {0, 0, 0, 0, 0}; // 0 -> distanza verticale inizio 1 -> distanza verticale finale 2 -> distanza x 3-> distanza z 4-> pitagora
   dist[0] =  hOff + altezzaP  + YBASE - abs(p[1]);
   dist[1] =  hOff + altezzaP  + YBASE - abs(p[4]);
@@ -72,8 +69,8 @@ float[] distance(float[] p) {
   if (p[0] >= 0 && p[3] >= 0 || p[0] <= 0 && p[3] <= 0) dist[2] = (abs(p[0])-abs(p[3]));
   dist[3] = abs(p[2] - p[5]);
   dist[4] = sqrt((dist[2])*(dist[2]) + (dist[3])*(dist[3]));
-
   return(dist);
+  
 }
 
 
