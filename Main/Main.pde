@@ -122,7 +122,7 @@ Float LvCx=posPaloCx + xBaseTrasl;   Float Lv1Cy=-YBASE/2-HeightDisc/2 + yBaseTr
 // posizioni della mossa
 float[] posi;
 float[] distt;
-float[] CurrentPosition={0,0,0};
+float[] CurrentPosition={0,-230.0,-510.0};
 
 //offset di altezza
 float hOff = 30;
@@ -193,6 +193,7 @@ void setup(){
   //pointLight(51, 102, 126, 140, 160, 144);
    directionalLight(126,126,126,0,0,0.7);
    smooth(8);
+   
    HanoiSolution(3);
    UNOxx = posPaloAx;
    UNOyy = -YBASE/2-HeightDisc/2;
@@ -221,13 +222,12 @@ void setup(){
    int i=0;
    for(i=0;i<1300;i++){
      listX.append(0);
-     listY.append(0);    
-     listZ.append(0);
+     listY.append(-230);    
+     listZ.append(-510);
   }
 }
 
 void draw(){
-  
  if(chooseTower == 0) {
    
    cam.setActive(false);
