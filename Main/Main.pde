@@ -4,11 +4,12 @@ import peasy.*;
 ArrayList<Move> Moves = new ArrayList<Move>();
 Move M;
 
+int zoom=500;
 PeasyCam cam;
 
 //Variabili di selezione
 int choosePalo = 0;
-int oscillo=1;
+int oscillo=0;
 int XYZ=0;
 int traspX=255;
 int traspY=255;
@@ -185,7 +186,7 @@ float posiZ = 0.0;
 void setup() {
 
   size(1300, 750, P3D);
-  cam = new PeasyCam(this, 500);
+  cam = new PeasyCam(this, zoom);
   background(#979CF5);
   //pointLight(51, 102, 126, 140, 160, 144);
   directionalLight(126, 126, 126, 0, 0, 0.7);
@@ -263,7 +264,7 @@ void draw() {
       LvCz=posPaloCz + zBaseTrasl;
 
     }
-  } else if (chooseTower == 1) cam.setActive(true); //attiva telecamera
+  } else if (chooseTower == 1) cam.setActive(true);//attiva telecamera
   background(#979CF5);
   directionalLight(255, 255, 255, 0.5, 0.5, 0.3);
 
