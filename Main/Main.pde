@@ -9,7 +9,7 @@ PeasyCam cam;
 
 //Variabili di selezione
 int choosePalo = 0;
-int oscillo=0;
+int oscillo=1;
 int XYZ=0;
 int traspX=255;
 int traspY=255;
@@ -68,7 +68,6 @@ float UNOzz = 0.0;
 
 //Coordinate iniziali punto presa della linguetta
 float PosLingUNOx=-100.0;
-;
 float PosLingUNOy=-YBASE/2-HeightDisc/2;
 float PosLingUNOz=(RestDiscUNO)+Linguetta;
 
@@ -97,7 +96,6 @@ float TREzz = 0.0;
 
 //Coordinate iniziali punto presa della linguetta
 float PosLingTREx=-100.0;
-;
 float PosLingTREy=-YBASE/2-(5*HeightDisc)/2;
 float PosLingTREz=(RestDiscTRE)+Linguetta;
 
@@ -134,18 +132,15 @@ int j = 0; //numero di mossa della soluzione della torre
 
 int show = 0; // variabile per la visualizzazione della traiettoria
 
-
 int presa = -2;// variabile per la partizione dei compiti del robot
 
 float t = 0.0; //tempo corrente
 float tf = 3; // tempo finale
 float phi;
 
-
 int choose = 0; // scelta inziale tra le due leggi orarie
 
 // robot
-
 PShape base;
 PShape Link1;
 PShape Link2;
@@ -153,7 +148,6 @@ PShape Link3;
 PShape Link4;
 PShape Link5;
 PShape Link6;
-
 
 
 float q1=0.0;
@@ -219,9 +213,9 @@ void setup() {
 
   int i=0;
   for (i=0; i<1300; i++) {
-    listX.append(0);
-    listY.append(-230);
-    listZ.append(-510);
+    listX.append(0/4);
+    listY.append(-230/4);
+    listZ.append(-510/4);
   }
 }
 

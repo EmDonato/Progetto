@@ -1,6 +1,6 @@
 
 int chooseLO = 0; // variabile di scelta sulla legge oraria 0 --> minima energia 1 --> minimo tempo
-float A_MAX = 2;
+float A_MAX = 5;
 float speedP = 0.0;
 float speedN = 0.0;
 float speed0 = 0.0;
