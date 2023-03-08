@@ -13,6 +13,9 @@ float Llink2=2*130.0;
 
 float offsetq3 = -15 ;
 float offxlink3 = -10;
+float ditoOffset = 7; // 7 massimo 0 completamente chiuso
+float ditoOffsetR = 7; 
+float offset_presa = 2;
 
 float[] posi0 = { 0, -HBaseBot-H_L1-2*offsetq3, -L4-D1-D2-offxlink3, 0, 0, 0}; // posizione iniziale
 float[] posif = { 0, 0, 0, 0, -HBaseBot-H_L1-2*offsetq3, -L4-D1-D2-offxlink3}; // posizione finale
@@ -107,6 +110,15 @@ void polso(float theta4, float theta5) { //, float theta5
   translate(2, 0, 23);
   rotateZ(theta5);
   shape(Link6);
+  push();
+  translate(-ditoOffset,0,0);
+  shape(dito1);
+  pop();
+  push();
+  translate(ditoOffset,0,0);
+  shape(dito2);
+  pop();
+  
   pop();
 
   pop();

@@ -148,7 +148,8 @@ PShape Link3;
 PShape Link4;
 PShape Link5;
 PShape Link6;
-
+PShape dito1;
+PShape dito2;
 
 float q1=0.0;
 float q2=0.0;
@@ -185,7 +186,6 @@ void setup() {
   //pointLight(51, 102, 126, 140, 160, 144);
   directionalLight(126, 126, 126, 0, 0, 0.7);
   smooth(8);
-
   HanoiSolution(3);
   UNOxx = posPaloAx;
   UNOyy = -YBASE/2-HeightDisc/2;
@@ -205,8 +205,10 @@ void setup() {
   Link3=loadShape("link3_1.obj");
   Link4=loadShape("link4.obj");
   Link5=loadShape("link5.obj");
-  Link6=loadShape("hand.obj");
-
+  Link6=loadShape("handbasef.obj");
+  dito1=loadShape("ditoup.obj");
+  dito2=loadShape("ditodown.obj");
+  
   listX = new FloatList();
   listY = new FloatList();
   listZ = new FloatList();
@@ -220,6 +222,7 @@ void setup() {
 }
 
 void draw() {
+  
   if (chooseTower == 0) {
 
     cam.setActive(false); //disattiva telecamera
@@ -258,7 +261,8 @@ void draw() {
       LvCz=posPaloCz + zBaseTrasl;
 
     }
-  } else if (chooseTower == 1) cam.setActive(true);//attiva telecamera
+  } else if (chooseTower == 1) {rotateY(PI/2); cam.setActive(true);//attiva telecamera
+}
   background(#979CF5);
   directionalLight(255, 255, 255, 0.5, 0.5, 0.3);
 
@@ -416,21 +420,44 @@ void draw() {
         presa = 2;
       }
     }
-  } else if (presa == 2  ) { //giro della mano robotica
+  }
+  
+  
+  
+  
+  
+  else if (presa == 2  ) { //giro della mano robotica
     speedP = 0.0;
     speedN = 0.0;
     l0=0;
     q5r = q5r + 0.05*(HALF_PI-q5r);
-    if (abs(q5 - HALF_PI)<0.01)
-      presa = 1;
-  } else if (presa == 3 ) {//giro della mano robotica
+     if (abs(q5 - HALF_PI)<0.01){
+      ditoOffset = ditoOffset + 0.05*(offset_presa-ditoOffset);
+      if (abs(ditoOffset - offset_presa)<0.01){
+      presa = 1;}
+     }  
+  }
+  
+  
+  
+  
+  
+  else if (presa == 3 ) {//giro della mano robotica
     speedP = 0.0;
     speedN = 0.0;
     l0=0;
+    ditoOffset = ditoOffset + 0.05*(ditoOffsetR-ditoOffset);
+    if (abs(ditoOffsetR - ditoOffset)<0.01){
     q5r = q5r + 0.05*(0-q5r);
-    if (abs(q5 - 0)<0.01)
-      presa = 0;
-  } else if (presa == 1 ) {
+    if (abs(q5 - 0)<0.01){
+      presa = 0;}
+     } 
+  } 
+  
+  
+  
+  
+  else if (presa == 1 ) {
     M = Moves.get(j);
     posi = startAndFinal(M);
     posic[0] = posi[3];
@@ -468,7 +495,13 @@ void draw() {
         presa = 4;
       }
     }
-  } else if (presa == 0  ) {
+  }
+  
+  
+  
+  
+  
+  else if (presa == 0  ) {
 
     M = Moves.get(j);
     posi = startAndFinal(M);
@@ -499,7 +532,13 @@ void draw() {
 
       presa = 2;
     }
-  } else if (presa == 5 ) {
+  }
+  
+  
+  
+  
+  
+  else if (presa == 5 ) {
 
 
     posif[0] = posi[3];
@@ -531,15 +570,32 @@ void draw() {
         presa = 42;
       }
     }
-  } else if (presa == 4 ) {
+  } 
+  
+  
+  
+  
+  
+  
+  
+  
+  else if (presa == 4 ) {
 
     speedP = 0.0;
     speedN = 0.0;
     l0=0;
+    ditoOffset = ditoOffset + 0.05*(ditoOffsetR-ditoOffset);
+    if (abs(ditoOffsetR - ditoOffset)<0.01){    
     q5r = q5r + 0.05*(0-q5r);
-    if (abs(q5 - 0)<0.01)
-      presa = 5;
-  } else if (presa == 42 ) {
+    if (abs(q5 - 0)<0.01){
+      presa = 5;}
+     } 
+  }
+  
+  
+  
+  
+  else if (presa == 42 ) {
     speedP = 0.0;
     speedN = 0.0;
     l0=0;
