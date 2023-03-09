@@ -143,29 +143,3 @@ void Hanoi(int NumbDisk, Tower source, Tower dest, Tower aux ) {
     Hanoi(NumbDisk - 1, aux, dest, source);
   }
 }
-
-
-
-
-void moveDisk(float[] p, Move M) {
-
-
-  if (M.disk == 1) {
-    UNOxx = p[0];
-    UNOyy = p[1];
-    UNOzz = p[2]-PosLingUNOz;
-  }
-  if (M.disk == 2) {
-    DUExx = p[0];
-    DUEyy = p[1];
-    DUEzz = p[2]-PosLingDUEz;
-  }
-  if (M.disk == 3) {
-    if (i < 1) {
-      TRExx = TRExx - 1*(TRExx-p[0]);
-      TREyy =  TREyy - 1*(TREyy -p[1]);
-      TREzz = TREzz - 1*(TREzz - p[2]+PosLingTREz);
-    }
-  }
-   else;
-}

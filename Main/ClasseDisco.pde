@@ -86,3 +86,29 @@ void cilindroCavo(float r1, float r2, float h) {
   }
   endShape(CLOSE);
 }
+
+
+void moveDisk(float[] p, Move M) {
+
+
+  if (M.disk == 1) {
+        print("\n\n\n\n",CurrentPosition[1], UNOyy, "\n\n\n\n");
+
+    UNOxx = p[0];
+    UNOyy = p[1];
+    UNOzz = p[2]-PosLingUNOz;
+  }
+  if (M.disk == 2) {
+    DUExx = p[0];
+    DUEyy = p[1];
+    DUEzz = p[2]-PosLingDUEz;
+  }
+  if (M.disk == 3) {
+    
+      TRExx = TRExx - 1*(TRExx-p[0]);
+      TREyy = TREyy - 1*(TREyy -p[1]);
+      TREzz = TREzz - 1*(TREzz - p[2]+PosLingTREz);
+    
+  }
+   else;
+}

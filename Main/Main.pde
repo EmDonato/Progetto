@@ -483,9 +483,11 @@ void draw() {
       drawTraiettoria(distt, posi);
       drawCurrentPosition( CurrentPosition);
     }
+    
     moveDisk(CurrentPosition, M);
     t = t+ 0.01;
     if (i >= 1) {
+      moveDisk(CurrentPosition, M);
       i = 0.0;
       t = 0.0;
 
