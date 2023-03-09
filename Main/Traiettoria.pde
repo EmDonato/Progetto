@@ -2,7 +2,7 @@
 
 
 float[] traiettoria(float i, float[] dist, float[] startfinal) {
-
+  // i posizione corrente // dist vettore delle distanze //startfinel vettore delle posizioni iniziali e finali
   float[] posizione = { 0, 0, 0 }; // x, y, z
   float semiC = HALF_PI * dist[4] ;
   float raggio = dist[4]/2;
@@ -73,10 +73,10 @@ float[] traiettoriaIniziale(float i, float[] startfinal, int ausiliarInitialTraj
 
   float d;
 
-  distance[0] = abs(- abs(startfinal[0]) + abs(startfinal[3]));
-  distance[1] = abs(- abs(startfinal[1]) + abs(startfinal[1]+  hOff+ altezzaP + YBASE));
-  distance[2] = abs(- abs(startfinal[2]) + abs(startfinal[5]));
-  distance[3] = abs(+ abs(startfinal[4]) - abs(startfinal[1] +hOff+ altezzaP + YBASE));
+  distance[0] = abs(- abs(startfinal[0]) + abs(posi0[3]));
+  distance[1] = abs(- abs(startfinal[1]) + abs(posi0[1]+hOff+ altezzaP + YBASE));
+  distance[2] = abs(- abs(startfinal[2]) + abs(posi0[5]));
+  distance[3] = abs(+ abs(startfinal[4]) - abs(posi0[1]+hOff+ altezzaP + YBASE));
 
   if ( ausiliarInitialTrajector == 0) d = distance[1];
   else if ( ausiliarInitialTrajector == 1) d = distance[2];
@@ -89,24 +89,24 @@ float[] traiettoriaIniziale(float i, float[] startfinal, int ausiliarInitialTraj
   direction[2] = signum(startfinal[5] - startfinal[2]);
 
   if (ausiliarInitialTrajector == 0) {
-    posizione[0] = startfinal[0]; //x
-    posizione[2] = startfinal[2];  //z
-    posizione[1] = startfinal[1] + 1*i*d; // y
+    posizione[0] = posi0[0]; //x
+    posizione[2] = posi0[2];  //z
+    posizione[1] = posi0[1] + 1*i*d; // y
   }
   if (ausiliarInitialTrajector == 1) {
-    posizione[0] = startfinal[0]; //x
-    posizione[2] = startfinal[2] + direction[2]*i*d;  //z
-    posizione[1] = startfinal[1] +hOff+ altezzaP + YBASE; // y
+    posizione[0] = posi0[0]; //x
+    posizione[2] = posi0[2] + direction[2]*i*d;  //z
+    posizione[1] = posi0[1] +hOff+ altezzaP + YBASE; // y
   }
   if (ausiliarInitialTrajector == 2) {
-    posizione[0] = startfinal[0] + direction[0]*i*d; //x
-    posizione[2] = startfinal[5];  //z
-    posizione[1] = startfinal[1] +hOff+ altezzaP + YBASE; // y
+    posizione[0] = posi0[0] + direction[0]*i*d; //x
+    posizione[2] = posi0[5];  //z
+    posizione[1] = posi0[1] +hOff+ altezzaP + YBASE; // y
   }
   if (ausiliarInitialTrajector == 3) {
-    posizione[0] = startfinal[3]; //x
-    posizione[2] = startfinal[5];  //z
-    posizione[1] = startfinal[1] +hOff + altezzaP + YBASE +direction[1]*i*d; // y
+    posizione[0] = posi0[3]; //x
+    posizione[2] = posi0[5];  //z
+    posizione[1] = posi0[1] +hOff + altezzaP + YBASE +direction[1]*i*d; // y
   }
 
   return(posizione);

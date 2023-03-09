@@ -16,6 +16,7 @@ float offxlink3 = -10;
 float ditoOffset = 7; // 7 massimo 0 completamente chiuso
 float ditoOffsetR = 7; 
 float offset_presa = 2;
+float offset_spessorePolso = 50;
 
 float[] posi0 = { 0, -HBaseBot-H_L1-2*offsetq3, -L4-D1-D2-offxlink3, 0, 0, 0}; // posizione iniziale
 float[] posif = { 0, 0, 0, 0, -HBaseBot-H_L1-2*offsetq3, -L4-D1-D2-offxlink3}; // posizione finale

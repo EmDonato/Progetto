@@ -1,6 +1,7 @@
 
 int chooseLO = 0; // variabile di scelta sulla legge oraria 0 --> minima energia 1 --> minimo tempo
 float A_MAX = 3;
+float tf = 3; // tempo finale
 float speedP = 0.0;
 float speedN = 0.0;
 float speed0 = 0.0;
@@ -32,7 +33,7 @@ float tempo_minimo(float tc) {
     speedP =  A_MAX * tc ;
     l = (0.5)*A_MAX * tc * tc;
     l0 = l;
-    print("\n\n\n\n\n", speedP, "\n", l, "\n\n\n\n\n");
+    //print("\n\n\n\n\n", speedP, "\n", l, "\n\n\n\n\n");
   } else if (( speedP > speedTheshold)) {
     if (save == 0) {
       speed0 = speedP;
@@ -42,7 +43,7 @@ float tempo_minimo(float tc) {
     speedN =  -A_MAX * (tc - Tchange) + speed0;
     l = -(0.5)*A_MAX * (tc - Tchange) * (tc - Tchange) + speed0 *(tc - Tchange) + l0;
     if (l >= 1) l=1;
-    print("\n\n\n\n\n", speedN, "\n", l, "\n\n\n\n\n");
+   // print("\n\n\n\n\n", speedN, "\n", l, "\n\n\n\n\n");
   }
 
   return(l);

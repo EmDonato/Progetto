@@ -35,9 +35,9 @@ float posPaloCy= 0.0;
 float posPaloCz= -1000.0;
 
 //Larghezza, altezza e profondità della Base
-float XBASE=300.0;
+float XBASE=225.0;
 float YBASE=10.0;
-float ZBASE=150.0;
+float ZBASE=125.0;
 
 
 //Posizione traslazione base
@@ -135,7 +135,7 @@ int show = 0; // variabile per la visualizzazione della traiettoria
 int presa = -2;// variabile per la partizione dei compiti del robot
 
 float t = 0.0; //tempo corrente
-float tf = 3; // tempo finale
+
 float phi;
 
 int choose = 0; // scelta inziale tra le due leggi orarie
@@ -161,10 +161,6 @@ float q5=0.0;
 float q5r=0.0;
 
 
-float tasto=1;
-float TT=-0.02;
-float incR=0.5;
-float incP=10.0;
 
 
 
@@ -360,18 +356,29 @@ void draw() {
       fill(#FF0303, 125);
       translate(posPaloAx, -YBASE/2, posPaloAz);
       rotateX(-HALF_PI);
+      
       circle(0, 0, 2*(RestDiscUNO + RestDiscDUE));
-      pop();
+
+      rectMode(CENTER);
+      fill(#FF0303, 125);    
+      rectMode(CENTER);
+      rect(0,posPaloAz,2*offset_spessorePolso,ZBASE);  // disegniamo il rettangolo centrato   
+      
+       pop();
+      
     }
 
 
     if ( choosePalodraw == 2) {
 
       push();
+      CinematicaInversa(posi0[0], -posi0[1], posi0[2],0,0);
       fill(#FF0303, 125);
       translate(posPaloAx, -YBASE/2, posPaloAz);
       rotateX(-HALF_PI);
       circle(0, 0, 2*(RestDiscUNO + RestDiscDUE));
+      rectMode(CENTER);
+      rect(0,posPaloAz,2*offset_spessorePolso,ZBASE);  // disegniamo il rettangolo centrato  
       pop();
 
       push();
@@ -379,6 +386,8 @@ void draw() {
       translate(posPaloBx, -YBASE/2, posPaloBz);
       rotateX(-HALF_PI);
       circle(0, 0, 2*(RestDiscUNO + RestDiscDUE));
+      rectMode(CENTER);
+      rect(0,posPaloBz,2*offset_spessorePolso,ZBASE);  // disegniamo il rettangolo centrato  
       pop();
     }
   }

@@ -40,12 +40,14 @@ void mousePressed() {
 
   posiX = mouseX-650;
   posiZ = mouseY - 750/2;
-
+  float angolo = 0.0;
+  angolo = atan2(posiX,posiZ);
   if ( choosePalo == 0) {
-    posPaloAx = posiX;
+
+    if((abs(posiZ) <= ZBASE/2  && abs(posiX) <= XBASE/2)){    posPaloAx = posiX;
     posPaloAz = posiZ;
     choosePalo ++;
-    choosePalodraw++;
+    choosePalodraw++;}
   } else if (choosePalo == 1) {
 
 
@@ -55,7 +57,7 @@ void mousePressed() {
     float ausX = 0.0;
     int sign1x = signum(posPaloAx);
     int sign2x = signum(posiX);
-
+    float Raus = 0.0;
 
     if (sign1z == sign2z) ausZ = abs(abs(posPaloAz) - abs(posiZ));
     else ausZ = abs(posPaloAz) + abs(posiZ);
@@ -63,8 +65,10 @@ void mousePressed() {
     if (sign1x == sign2x) ausX = abs(abs(posPaloAx) - abs(posiX));
     else ausX = abs(posPaloAx) + abs(posiX);
 
+    Raus = sqrt( ausX*ausX + ausZ*ausZ );
+    
 
-    if ( ausZ  >= RestDiscUNO + RestDiscDUE  || ausX >= RestDiscUNO + RestDiscDUE ) {
+    if ( (Raus  >= RestDiscUNO + RestDiscDUE) && ((abs(posiZ) <= ZBASE/2)  && (abs(posiX) <= XBASE/2) ) && (ausX > offset_spessorePolso) ) {
       posPaloBx = posiX;
       posPaloBz = posiZ;
       choosePalo ++;
@@ -86,6 +90,9 @@ void mousePressed() {
     int sign1xB = signum(posPaloBx);
     int sign2xB = signum(posiX);
 
+    float RausA = 0.0;
+    float RausB = 0.0;
+    
 
     if (sign1zA == sign2zA) ausZA = abs(abs(posPaloAz) - abs(posiZ));
     else ausZA = abs(posPaloAz) + abs(posiZ);
@@ -99,8 +106,11 @@ void mousePressed() {
     if (sign1xB == sign2xB) ausXB = abs(abs(posPaloBx) - abs(posiX));
     else ausXB = abs(posPaloBx) + abs(posiX);
 
+     RausA = sqrt( ausXA*ausXA + ausZA*ausZA );
+     RausB = sqrt( ausXB*ausXB + ausZB*ausZB );
 
-    if ( (ausZA  >= RestDiscUNO + RestDiscDUE  || ausXA >= RestDiscUNO + RestDiscDUE) && (ausZB  >= RestDiscUNO + RestDiscDUE  || ausXB >= RestDiscUNO + RestDiscDUE) ) {
+
+    if ( (RausA  >= RestDiscUNO + RestDiscDUE) && (RausB >= RestDiscUNO + RestDiscDUE)  && ((abs(posiZ) <= ZBASE/2)  && (abs(posiX) <= XBASE/2) ) && (ausXA > offset_spessorePolso) && (ausXB > offset_spessorePolso) ) {
       posPaloCx = posiX;
       posPaloCz = posiZ;
       choosePalo ++;
